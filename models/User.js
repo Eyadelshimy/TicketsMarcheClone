@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
         profilePicture: { type: String, required: true },
         role: { type: String, enum: ["User", "Organizer", "Admin"], required: true },
     },
-    { timestamps: true }
+    { timestamps: true,strict: "throw" }
 );
 
 const User = mongoose.model("User", userSchema);
