@@ -13,6 +13,7 @@ const bookingSchema = new Schema({
         ref: 'Event',
         required: true
     },
+
     numberOfTickets:{
         type: Number,
         required: true
