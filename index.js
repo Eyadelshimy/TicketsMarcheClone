@@ -1,19 +1,12 @@
-const express = require("express");
-const connectDB = require("./config/db");
+const app = require("./app");
+const mongoose = require("mongoose");
 
+// Connect to MongoDB
+mongoose
+  .connect("mongodb://localhost:27017/ticketing-system")
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error(err));
 
-const app = express();
-
-const startServer = async () => {
-    try {
-        await connectDB();
-        app.listen(5000, () => {
-            console.log("🚀 Server is running on port 5000");
-        });
-    } catch (error) {
-        console.error("Failed to start the server:", error);
-        process.exit(1);
-    }
-};
-
-startServer();
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
