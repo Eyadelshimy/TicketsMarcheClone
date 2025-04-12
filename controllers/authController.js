@@ -29,12 +29,12 @@ exports.register = async (req, res) => {
       httpOnly: true,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       data: newUser,
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: error.message,
     });
@@ -56,12 +56,12 @@ exports.login = async (req, res) => {
     }
 
     const token = generateToken(user.toJSON());
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       token,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
