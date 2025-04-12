@@ -31,7 +31,7 @@ const userController = {
         try{
             const user = await userModel.findOneAndUpdate(
                 {userID: req.params.id},
-                {name: req.body.name},
+                {role: req.body.role},
                 {new: true}
             );
 
