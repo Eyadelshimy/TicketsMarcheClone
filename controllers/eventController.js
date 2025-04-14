@@ -77,5 +77,14 @@ module.exports = {
         } catch (error) {
             res.status(500).json({success: false, error: error.message});
         }
+    },
+
+  deleteEvent: async (req, res) => {
+    try {
+      let event = await Event.deleteOne({eventID: req.params.id});
+      res.status(200).json({success: true, data: event});
+    } catch (error) {
+      res.status(500).json({success: false, error: error.message});
     }
+  }
 };
