@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Booking = require("../models/Booking");
 
 module.exports = {
   //get
@@ -84,5 +85,15 @@ module.exports = {
       return res.status(500).json({ error: err });
     }
   },
-};
 
+  getUserBookings: async (req, res) => {
+    try {
+      let bookings = await Booking.find().populate("user").populate("event");
+      // bookings = bookings.filter((b) => b.user);
+
+      return res.status(200).json({ success: true, bookings: bookings });
+    } catch (error) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  },
+};
