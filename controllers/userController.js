@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const Booking = require("../models/Booking");
 
 module.exports = {
   //get
@@ -57,29 +56,19 @@ module.exports = {
     });
   },
   putUserProfile: async (req, res) => {
-    try {
-      const user = await User.findOneAndUpdate(
-        { userID: req.user.userID },
-        { role: req.body.role },
-        { new: true },
-      );
+      try {
+          const user = await User.findOneAndUpdate(
+              {userID: req.user.userID},
+              {role: req.body.role},
+              {new: true},
+          );
 
-      return res
-        .status(200)
-        .json({ user, message: "User role updated successfully" });
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
-    }
-  },
+          return res
+              .status(200)
+              .json({user, message: "User role updated successfully"});
+      } catch (err) {
+          return res.status(500).json({error: err.message});
+      }
+  }
 
-  getUserBookings: async (req, res) => {
-    try {
-      let bookings = await Booking.find().populate("user").populate("event");
-      // bookings = bookings.filter((b) => b.user);
-
-      return res.status(200).json({ success: true, bookings: bookings });
-    } catch (error) {
-      return res.status(500).json({ success: false, message: error.message });
-    }
-  },
-};
+}
