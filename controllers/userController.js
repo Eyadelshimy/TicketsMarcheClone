@@ -83,4 +83,24 @@ module.exports = {
       return res.status(500).json({ success: false, message: error.message });
     }
   },
+
+  getUserEvents: async (req, res) => {
+    try {
+      let events = await Event.find({ user: req.user._id })
+          .populate("user")
+      return res.status(200).json(events);
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  },
+
+  getUserEventsAnalytics: async (req, res) => {
+    try {
+      let events = await Event.find({ user: req.user._id })
+          .populate("user")
+      return res.status(200).json({success: true, events});
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
 };
