@@ -58,31 +58,17 @@ module.exports = {
   },
   putUserProfile: async (req, res) => {
     try {
-      let update = req.body;
-
-      if (update.hasOwnProperty("password")) {
-        delete update.password;
-      }
-
-      if (update.hasOwnProperty("userID")) {
-        delete update.userID;
-      }
-
-      if (update.hasOwnProperty("role")) {
-        delete update.role;
-      }
-
       const user = await User.findOneAndUpdate(
         { userID: req.user.userID },
-        update,
+        { role: req.body.role },
         { new: true },
       );
 
       return res
         .status(200)
-        .json({ user, message: "User updated successfully" });
+        .json({ user, message: "User role updated successfully" });
     } catch (err) {
-      return res.status(500).json({ error: err });
+      return res.status(500).json({ error: err.message });
     }
   },
 
