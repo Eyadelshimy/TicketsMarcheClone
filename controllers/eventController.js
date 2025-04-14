@@ -3,7 +3,6 @@ const Event = require("../models/Event");
 module.exports = {
   createEvent: async (req, res) => {
     try {
-
       const {
         title,
         description,
@@ -19,15 +18,15 @@ module.exports = {
 
       // Validate required fields
       if (
-          !title ||
-          !description ||
-          !date ||
-          !location ||
-          !category ||
-          !ticketPricing ||
-          !totalTickets ||
-          !remainingTickets ||
-          !status
+        !title ||
+        !description ||
+        !date ||
+        !location ||
+        !category ||
+        !ticketPricing ||
+        !totalTickets ||
+        !remainingTickets ||
+        !status
       ) {
         return res.status(400).json({
           success: false,
@@ -61,7 +60,8 @@ module.exports = {
       }
 
       //server error
-      res.status(500).json({ success: false, error: "Server error" });
+      res.status(500).json({ success: false, error: error.message });
     }
   },
 };
+
