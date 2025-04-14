@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const eventSchema = new mongoose.Schema(
   {
+    eventID: { type: String, unique: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     date: { type: Date, required: true },
@@ -27,5 +28,12 @@ const eventSchema = new mongoose.Schema(
     strict: "throw",
   },
 );
+
+eventSchema.pre("save", function (next) {
+  if (!this.eventID) {
+    this.eventID = uuidv4();
+  }
+  next();
+});
 
 module.exports = mongoose.model("Event", eventSchema);
