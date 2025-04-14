@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Event = require("../models/Event");
 const Booking = require("../models/Booking");
 
 module.exports = {
@@ -86,16 +87,8 @@ module.exports = {
 
     getUserEvents: async (req, res) => {
         try {
-            let events = await Event.find({user: req.user._id})
-                .populate("user");
-            return res.status(200).json({
-                title: events.title,
-                description: events.description,
-                date: events.date,
-                location: events.location,
-                category: events.category,
-                image: events.image
-            });
+            let events = await Event.find({organizer: req.user._id}, "title description date location category image")
+            return res.status(200).json(events);
         } catch (err) {
             return res.status(500).json({error: err.message});
         }
@@ -103,20 +96,9 @@ module.exports = {
 
     getUserEventsAnalytics: async (req, res) => {
         try {
-            let events = await Event.find({user: req.user._id})
-                .populate("user")
-          return res.status(200).json({
-            title: events.title,
-            description: events.description,
-            date: events.date,
-            location: events.location,
-            category: events.category,
-            image: events.image,
-            ticketPricing: events.ticketPricing,
-            totalTickets: events.totalTickets,
-            remainingTickets: events.remainingTickets,
-            status: events.status
-          });
+            let events = await Event.find({organizer: req.user._id}, "title date location ticketPricing remainingTickets status organizer")
+
+            return res.status(200).json({events});
         } catch (err) {
             return res.status(500).json({error: err.message});
         }

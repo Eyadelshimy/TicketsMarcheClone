@@ -14,7 +14,7 @@ const {
 const router = express.Router();
 const { roleProtect } = require("../middleware/auth");
 
-router.get("/events/analytics", roleProtect(["organizer"]), getUserEvents);
+router.get("/events/analytics", roleProtect(["organizer"]), getUserEventsAnalytics);
 router.get("/events", roleProtect(["organizer"]), getUserEvents);
 
 
