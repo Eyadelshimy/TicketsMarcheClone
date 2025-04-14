@@ -7,10 +7,16 @@ const {
   updateUser,
   deleteUser,
   getUser,
+  getUserEvents,
+  getUserEventsAnalytics
 } = require("../controllers/userController");
 
 const router = express.Router();
 const { roleProtect } = require("../middleware/auth");
+
+router.get("/events/analytics", roleProtect(["organizer"]), getUserEvents);
+router.get("/events", roleProtect(["organizer"]), getUserEvents);
+
 
 router.get("/profile", roleProtect(["user"]), getUserProfile);
 router.put("/profile", roleProtect(["user"]), putUserProfile);
