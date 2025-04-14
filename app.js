@@ -11,7 +11,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/v1", authRouter);
-app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/users", require("./routes/userRoutes"));
 
 module.exports = app;
