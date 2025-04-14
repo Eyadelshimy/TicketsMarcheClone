@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema(
   {
+    bookingID: { type: String, unique: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     event: {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,5 +23,11 @@ const bookingSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model("Booking", bookingSchema);
+bookingSchema.pre("save", function (next) {
+  if (!this.bookingID) {
+    this.bookingID = uuidv4();
+  }
+  next();
+});
 
+module.exports = mongoose.model("Booking", bookingSchema);
