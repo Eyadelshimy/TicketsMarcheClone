@@ -26,9 +26,9 @@ exports.roleProtect = (roles) => {
         roles.some((role) => role.toLowerCase() === req.user.role.toLowerCase())
       ) {
         next();
-      }
+      } else res.status(401).json({ success: false, message: "no." });
     } catch (error) {
-      res.status(401).json({ success: false, message: "no." });
+      res.status(401).json({ success: false, message: error });
     }
   };
 };
