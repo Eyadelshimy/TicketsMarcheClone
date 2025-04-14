@@ -18,15 +18,15 @@ module.exports = {
 
       // Validate required fields
       if (
-        !title ||
-        !description ||
-        !date ||
-        !location ||
-        !category ||
-        !ticketPricing ||
-        !totalTickets ||
-        !remainingTickets ||
-        !status
+          !title ||
+          !description ||
+          !date ||
+          !location ||
+          !category ||
+          !ticketPricing ||
+          !totalTickets ||
+          !remainingTickets ||
+          !status
       ) {
         return res.status(400).json({
           success: false,
@@ -59,9 +59,17 @@ module.exports = {
         });
       }
 
-      //server error
+      // Server error
       res.status(500).json({ success: false, error: error.message });
     }
   },
-};
 
+  getAllEvents: async (req, res) => {
+    try {
+      const events = await Event.find(); // Fetch all events from the database
+      res.status(200).json({ success: true, data: events });
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Server error" });
+    }
+  },
+};
