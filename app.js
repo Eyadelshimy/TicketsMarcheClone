@@ -2,7 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/authRoutes");
-const adminRouter = require("./routes/adminRoutes");
+
+require("./models/User");
+require("./models/Event");
+require("./models/Booking");
 
 const app = express();
 
