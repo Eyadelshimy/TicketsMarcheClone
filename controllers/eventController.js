@@ -3,7 +3,6 @@ const Event = require("../models/Event");
 module.exports = {
   createEvent: async (req, res) => {
     try {
-
       const {
         title,
         description,
@@ -60,7 +59,16 @@ module.exports = {
         });
       }
 
-      //server error
+      // Server error
+      res.status(500).json({ success: false, error: "Server error" });
+    }
+  },
+
+  getAllEvents: async (req, res) => {
+    try {
+      const events = await Event.find(); // Fetch all events from the database
+      res.status(200).json({ success: true, data: events });
+    } catch (error) {
       res.status(500).json({ success: false, error: "Server error" });
     }
   },
