@@ -72,4 +72,14 @@ module.exports = {
       res.status(500).json({ success: false, error: "Server error" });
     }
   },
+
+  getEvent: async (req, res) => {
+    try{
+      const event= await Event.find({eventID: req.params.id})
+      res.status(200).json(event);
+    } catch (e) {
+     res.status(500).json({error: e.message});
+    }
+  },
+
 };
