@@ -74,8 +74,9 @@ module.exports = {
 
   getUserBookings: async (req, res) => {
     try {
-      let bookings = await Booking.find().populate("user").populate("event");
-      // bookings = bookings.filter((b) => b.user);
+      let bookings = await Booking.find({ user: req.user._id })
+        .populate("user")
+        .populate("event");
 
       return res.status(200).json({ success: true, bookings: bookings });
     } catch (error) {
