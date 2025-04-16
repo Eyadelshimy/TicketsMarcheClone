@@ -28,7 +28,7 @@ exports.roleProtect = (roles) => {
         next();
       } else res.status(401).json({ success: false, message: "Not Allowed (fck u)" });
     } catch (error) {
-      res.status(401).json({ success: false, message: error });
+      res.status(500).json({ success: false, message: error });
     }
   };
 };
