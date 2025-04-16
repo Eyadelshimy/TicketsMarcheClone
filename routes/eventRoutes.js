@@ -8,7 +8,7 @@ router.get("/:id", getEvent);
 router.delete("/:id", deleteEvent);
 router.put("/:id", updateEvent);
 
-router.get("/", getAllEvents);
 router.post("/",roleProtect(["organizer"]), createEvent);
+router.get("/", getAllEvents);
 
  module.exports = router;
