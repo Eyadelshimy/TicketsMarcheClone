@@ -13,8 +13,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+
 app.use("/api/v1/events", eventRouter);
-app.use("/api/v1", authRouter);
+app.use("/api/v1", authRouter); 
 app.use("/api/v1/users", require("./routes/userRoutes"));
 app.use("/api/v1/bookings", require("./routes/bookingRoutes"));
 
