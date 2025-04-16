@@ -56,11 +56,12 @@ exports.login = async (req, res) => {
     }
 
     const token = generateToken(user.toJSON());
+
     res.cookie("token", token, {
       maxAge: 900000,
       httpOnly: true,
     });
-    res.cookie;
+
     return res.status(200).json({
       success: true,
       token,
