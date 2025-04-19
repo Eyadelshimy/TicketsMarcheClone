@@ -1,14 +1,23 @@
-const express = require("express")
-const { createEvent,getAllEvents, getEvent,deleteEvent, updateEvent} = require("../controllers/eventController");
-const { roleProtect } =require("../middleware/auth");
-const router = express.Router();
+const express = require("express");
+const {
+  createEvent,
+  getApprovedEvents,
+  getEvent,
+  getAllEvents,
+  deleteEvent,
+  updateEvent,
+} = require("../controllers/eventController");
 
+const { roleProtect } = require("../middleware/auth");
+const router = express.Router();
 
 router.get("/:id", getEvent);
 router.delete("/:id", deleteEvent);
 router.put("/:id", updateEvent);
 
-router.post("/",roleProtect(["organizer"]), createEvent);
-router.get("/", getAllEvents);
+router.post("/", roleProtect(["organizer"]), createEvent);
+router.get("/", getApprovedEvents);
+router.get("/all", roleProtect(["admin"]), getAllEvents);
 
- module.exports = router;
+module.exports = router;
+
