@@ -21,4 +21,24 @@ module.exports = {
       return res.status(500).json({ success: false, message: error.message });
     }
   },
+
+  getBooking: async (req, res) => {
+    try {
+      let booking = Booking.findOne({ bookingID: req.params.id });
+
+      return res.status(200).json(booking);
+    } catch (error) {
+      return res.status(500).json({ success: false, message: erorr.message });
+    }
+  },
+
+  cancelBooking: async (req, res) => {
+    try {
+      let booking = await Booking.deleteOne({ bookingID: req.params.id });
+
+      return res.status(200).json(booking);
+    } catch (error) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  },
 };
