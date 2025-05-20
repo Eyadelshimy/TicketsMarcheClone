@@ -1,0 +1,25 @@
+.unauthorized-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 40px;
+}
+
+.unauthorized-content {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 600px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+.unauthorized-icon {
+    font-size: 60px;
+    margin: 20px 0;
+}
+
+.unauthorized-actions {
+    margin-top: 30px;
+} 

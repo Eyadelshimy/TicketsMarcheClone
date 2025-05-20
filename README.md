@@ -37,3 +37,4 @@ The Online Event Ticketing System is a full-stack web application designed to al
 - Database: MongoDB with Mongoose
 
 - Version Control: GitHub
+

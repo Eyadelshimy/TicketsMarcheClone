@@ -1,3 +1,23 @@
+/* App.css */
+@import './assets/css/alerts.css';
+@import './assets/css/tables.css';
+@import './assets/css/layout.css';
+@import './assets/css/unauthorized.css';
+
+/* Add this to the beginning of the file */
+* {
+  outline: none !important;
+}
+
+/* Remove autofill background color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
 /* Modified App.css */
 #root {
   max-width: 100%;

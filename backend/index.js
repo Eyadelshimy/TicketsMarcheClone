@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/ticketing-system")
+  .connect("mongodb://localhost:27017/TicketsMarcheDB")
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 

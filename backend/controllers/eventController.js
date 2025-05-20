@@ -73,6 +73,21 @@ module.exports = {
     }
   },
 
+  getOrganizerEvents: async (req, res) => {
+    try {
+      const organizerId = req.params.organizerId;
+      
+      // Find all events where the organizer field matches the given ID
+      const events = await Event.find({ organizer: organizerId })
+        .sort({ createdAt: -1 }); // Sort by creation date, newest first
+      
+      res.status(200).json({ success: true, data: events });
+    } catch (error) {
+      console.error("Error fetching organizer events:", error);
+      res.status(500).json({ success: false, error: "Server error" });
+    }
+  },
+
   getEvent: async (req, res) => {
     try {
       const event = await Event.find({ eventID: req.params.id });
