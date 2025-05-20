@@ -1,0 +1,162 @@
+/* Extend Bootstrap's btn class with common styles */
+.btn {
+    display: flex;
+    min-height: 46px;
+    padding: var(--spacing-tokens-spacing-m, 16px) var(--spacing-tokens-spacing-xl, 20px);
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    border-radius: 100px;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Inter';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    white-space: nowrap;
+    flex-direction: row;
+}
+
+.btn-md {
+    display: flex;
+    height: 40px;
+    padding: var(--spacing-tokens-spacing-m, 16px) var(--spacing-tokens-spacing-xl, 32px);
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    border-radius: 100px;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Inter';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    white-space: nowrap;
+}
+.btn-sm {
+    font-family: 'Inter';
+    font-size: 32px;
+    height: 68px;
+    padding: var(--spacing-tokens-spacing-m, 16px) var(--spacing-tokens-spacing-xl, 32px);
+    background: var(--mainColor);
+    color: #ffffff;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+/* Custom colors for different button types */
+.btn-tm-primary {
+    background: var(--mainColor);
+    color: var(--mainTextColor);
+}
+
+.btn-tm-primary-outline,
+.btn-tm-black-outline {
+    background: #FFF;
+    border: 1px solid;
+}
+
+.btn-tm-primary-outline {
+    color: var(--mainColor);
+    border-color: var(--mainColor);
+}
+
+.btn-tm-black-outline {
+    color: #000;
+    border-color: #000;
+}
+
+.btn-tm-secondary {
+    background: #212121;
+    color: #fff;
+}
+
+.btn-tm-link {
+    color: #000;
+    line-height: 25px;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
+.btn-circle-primary {
+    height: 68px;
+    width: 68px;
+    padding: 10px;
+    background: var(--mainColor);
+    color: #000;
+    font-size: 24px;
+}
+
+.btn-circle-white {
+    height: 60px;
+    width: 60px;
+    padding: 10px;
+    background: #fff;
+    color: #000;
+    font-size: 24px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.10);
+}
+
+.tm-link{
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Inter';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px; /* 100% */
+    text-decoration-line: underline;
+    text-transform: capitalize;
+    text-underline-offset: 10px;
+    display: block;
+}
+
+
+/* BUTTON HOVER */
+.btn-tm-primary:hover,
+.btn-circle-primary:hover {
+    background-color: #212121;
+    color: var(--mainColor);
+}
+.btn-tm-primary:hover path, .btn-circle-primary:hover path {
+    stroke: var(--mainColor);
+    transition: .3s ease all;
+}
+.btn-tm-primary-outline:hover,
+.btn-tm-black-outline:hover {
+    color: #000;
+    border-color: #000;
+}
+
+.btn-tm-secondary:hover {
+    background-color: var(--mainColor);
+    color: #212121;
+}
+
+.btn-tm-link:hover {
+    color: var(--mainColor);
+}
+
+.btn-circle-white:hover {
+    background-color: var(--mainColor);
+}
+.tm-link:hover{
+    color: var(--mainColor);
+}
+
+@media only screen and (max-width:768px){
+    .btn-37{
+        height: 37px;
+    }
+    .btn i{
+        font-size: 20px;
+    }
+    .btn-circle-white {
+        height: 40px !important;
+        width: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
+    }
+}

@@ -1,0 +1,266 @@
+@font-face {
+    font-family: "PP Fragment";
+    src: url("../Fonts/PPFragment-SerifRegular.woff2") format("woff2"),
+    url("../Fonts/PPFragment-SerifRegular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../Fonts/Inter-Regular.woff2") format("woff2"),
+    url("../Fonts/Inter-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-size: 16px;
+    font-family: "Inter";
+}
+
+h1,
+.h1 {
+    font-family: 'PP Fragment', sans-serif;
+    font-size: 2.25rem;
+    text-transform: capitalize;
+    line-height: 2.25rem;
+}
+
+h2,
+.h2 {
+    font-family: 'PP Fragment', sans-serif;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    line-height: 1.5rem;
+}
+
+h3,
+.h3 {
+    font-family: 'PP Fragment', sans-serif;
+    font-size: 1rem;
+    text-transform: capitalize;
+    line-height: 1rem;
+}
+
+.body-1 {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 2.25rem !important;
+    line-height: 2.375rem !important;
+}
+
+.body-2 {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.875rem !important;
+    line-height: 2rem !important;
+}
+
+.body-3 {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.75rem !important;
+    line-height: 1.875rem !important;
+}
+
+.body-4-regular {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.5rem !important;
+    line-height: 1.625rem !important;
+    font-weight: normal !important;
+}
+
+.body-4-medium {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.5rem !important;
+    line-height: 1.625rem !important;
+    font-weight: 500 !important;
+}
+
+.body-5 {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.25rem !important;
+    line-height: 1.375rem !important;
+    font-weight: normal !important;
+}
+
+.body-5-medium {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.25rem !important;
+    line-height: 1.375rem !important;
+    font-weight: 700 !important;
+}
+
+.body-6 {
+    font-size: 1.0625rem !important;
+    line-height: 1.1875rem !important;
+    font-family: Inter !important;
+    color: #101828 !important;
+}
+
+.body-7 {
+    font-family: Inter !important;
+    font-size: 0.9375rem !important;
+    line-height: 1.0625rem !important;
+    font-weight: 400 !important;
+}
+
+.body-8 {
+    font-size: 0.8125rem !important;
+    line-height: 0.9375rem !important;
+}
+
+.text-black {
+    color: #000;
+}
+
+.text-white {
+    color: #fff;
+}
+
+@media screen and (max-width: 90rem) {
+    h1,
+    .h1 {
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    h2,
+    .h2 {
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+    }
+
+    h3,
+    .h3 {
+        font-size: 1rem;
+        line-height: 1rem;
+    }
+
+    .body-1 {
+        font-size: 2rem !important;
+        line-height: 2.125rem !important;
+    }
+
+    .body-2 {
+        font-size: 1.8rem !important;
+        line-height: 1.875rem !important;
+    }
+
+    .body-3 {
+        font-size: 1.6rem !important;
+        line-height: 1.7rem !important;
+    }
+
+    .body-4-regular {
+        font-size: 1.4rem !important;
+        line-height: 1.525rem !important;
+    }
+
+    .body-4-medium {
+        font-size: 1.4rem !important;
+        line-height: 1.525rem !important;
+    }
+
+    .body-5 {
+        font-size: 1.2rem !important;
+        line-height: 1.325rem !important;
+    }
+
+    .body-5-medium {
+        font-size: 1.2rem !important;
+        line-height: 1.325rem !important;
+    }
+
+    .body-6 {
+        font-size: 1rem !important;
+        line-height: 1.125rem !important;
+    }
+
+    .body-7 {
+        font-size: 0.9rem !important;
+        line-height: 1rem !important;
+    }
+
+    .body-8 {
+        font-size: 0.8rem !important;
+        line-height: 0.925rem !important;
+    }
+}
+
+@media (max-width: 48rem) {
+    h1,
+    .h1 {
+        font-size: 1.6rem;
+        line-height: 1.825rem;
+        margin-bottom: 0;
+    }
+
+    h2,
+    .h2 {
+        font-size: 1.4rem;
+        line-height: 1.525rem;
+    }
+
+    h3,
+    .h3 {
+        font-size: 1.2rem;
+        line-height: 1.325rem;
+    }
+
+    .body-1 {
+        font-size: 3rem !important;
+        line-height: 3.125rem !important;
+    }
+
+    .body-2 {
+        font-size: 2.25rem !important;
+        line-height: 2.375rem !important;
+    }
+
+    .body-3 {
+        font-size: 1.5rem !important;
+        line-height: 1.625rem !important;
+    }
+
+    .body-4-regular{
+        font-size: 1rem !important;
+        line-height: 1.125rem !important;
+    }
+
+    .body-4-medium {
+        font-size: 1rem !important;
+        line-height: 1.125rem !important;
+        font-weight: 600 !important;
+    }
+
+    .body-5,
+    .body-5-medium {
+        font-size: 1rem !important;
+        line-height: 1.25rem !important;
+    }
+
+    .body-6 {
+        font-size: 0.75rem !important;
+        line-height: 0.875rem !important;
+        font-weight: 400 !important;
+    }
+
+    .body-7 {
+        font-size: 0.75rem !important;
+        line-height: 0.875rem !important;
+    }
+
+    .body-8 {
+        font-size: 0.625rem !important;
+        line-height: 0.625rem !important;
+    }
+
+    .navbar>.container-fluid {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    p.body-4-regular.text-black.date {
+        margin-bottom: 0px !important;
+        font-weight: 400 !important;
+    }
+}

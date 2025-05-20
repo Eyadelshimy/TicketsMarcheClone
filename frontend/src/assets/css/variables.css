@@ -1,0 +1,26 @@
+:root {
+    /* Main colors you already defined */
+    --mainColor: #f7c53f;
+    --secondaryColor: #f5d36e;
+
+    /* Spacing variables you already defined */
+    --spacing-0-x: 0px;
+    --spacing-1-x: 8px;
+    --spacing-3-x: 24px;
+    --spacing-5-x: 40px;
+    --spacing-8-x: 64px;  /* Added missing spacing */
+    --spacing-11-x: 60px;
+    --spacing-tokens-spacing-xl: 32px;
+    --spacing-tokens-spacing-2-xl: 24px;
+    --spacing-tokens-spacing-m: 16px;
+
+    /* Text color variables */
+    --mainTextColor: #000000;
+
+    /* Gray colors */
+    --gray-iron-100: #F4F4F5;
+
+    /* Bootstrap variables */
+    --bs-body-bg: #ffffff;
+    --bs-body-color: #212529;
+}
