@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/home.css';
+import EventCard from '../Components/EventCard';
+import VenueCard from '../Components/VenueCard';
+import CategoryCard from '../Components/CategoryCard'
+import HotEventCard from '../Components/HotEventCard'
 
 // Placeholder image URLs - replace with actual images later
 const placeholderImage = 'https://placehold.co/600x400?text=Event+Image';
 const organizerLogo = 'https://placehold.co/150x50?text=Organizer';
 
+/*
 const CategoryCard = ({ title, count, image }) => (
     <div className="category-card">
         <Link to={`/events/category/${title.toLowerCase()}`} className="category-link">
@@ -24,7 +29,7 @@ const CategoryCard = ({ title, count, image }) => (
         </Link>
     </div>
 );
-
+//done 
 const VenueCard = ({ title, image }) => (
     <div className="venue-card">
         <Link to={`/venues/${title.toLowerCase().replace(/\s+/g, '-')}`} className="venue-link">
@@ -38,21 +43,7 @@ const VenueCard = ({ title, image }) => (
     </div>
 );
 
-const EventCard = ({ title, image, location, date }) => (
-    <div className="event-card">
-        <Link to={`/events/${title.toLowerCase().replace(/\s+/g, '-')}`} className="event-link">
-            <div className="event-image-container">
-                <img src={image || placeholderImage} alt={title} className="event-card-image" />
-                <span className="event-label">{location}</span>
-            </div>
-            <div className="event-info">
-                <h3 className="event-title">{title}</h3>
-                <p className="event-date">{date}</p>
-            </div>
-        </Link>
-    </div>
-);
-
+done
 const HotEventCard = ({ title, image, date }) => (
     <div className="hot-event-card">
         <Link to={`/events/${title.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -66,7 +57,7 @@ const HotEventCard = ({ title, image, date }) => (
         </Link>
     </div>
 );
-
+*/
 const HomePage = () => {
     // Sample data
     const categories = [
@@ -104,16 +95,7 @@ const HomePage = () => {
                     <div className="splide__slide">
                         <div className="event_details">
                             <div>
-                                <h1>Disco Misr Festival - Album Launch</h1>
-                                <p className="body-4-regular text-black date">May 30 | 03:00 PM</p>
-                                <p className="body-5 text-black area">Zed Park, Elsheikh Zayed</p>
-                                
-                                <div className="mt-4">
-                                    <p className="f-event-organizer-static">Organized by</p>
-                                    <p className="f-event-organizer-logo">
-                                        <img src={organizerLogo} alt="Organizer" />
-                                    </p>
-                                </div>
+                               <EventCard/>
                             </div>
                             
                             <div className="button-container">
