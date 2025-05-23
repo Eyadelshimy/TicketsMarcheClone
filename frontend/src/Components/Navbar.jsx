@@ -24,6 +24,7 @@ export default function Navbar() {
   const { openLoginModal, openRegisterModal, closeModals } = useModal();
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Add this effect to close dropdown when auth state changes
   useEffect(() => {
@@ -97,6 +98,12 @@ export default function Navbar() {
           <Form
             align="center"
             className="d-inline-flex justify-content-center align-items-center"
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate("/events", {
+                state: { search: searchTerm.trim().toLowerCase() },
+              });
+            }}
           >
             <Row>
               <Col
@@ -115,6 +122,8 @@ export default function Navbar() {
                   placeholder="Search"
                   className="mr-sm-2"
                   style={{ border: "none", boxShadow: "none" }}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </Col>
             </Row>
