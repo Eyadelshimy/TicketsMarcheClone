@@ -51,7 +51,7 @@ const CreateEvent = () => {
         setImagePreview(reader.result);
         setEventData((prev) => ({
           ...prev,
-          imageFile: reader.result,
+          image: reader.result,
         }));
       };
 
@@ -73,6 +73,7 @@ const CreateEvent = () => {
         "date",
         "location",
         "category",
+        "image",
         "ticketPricing",
         "totalTickets",
       ];
@@ -80,18 +81,14 @@ const CreateEvent = () => {
 
       if (missingFields.length > 0 || !eventData.imageFile) {
         throw new Error(
-          `Please fill all required fields: ${missingFields.join(", ")}${!eventData.imageFile ? ", event image" : ""}`,
+          `Please fill all required fields: ${missingFields.join(", ")}`,
         );
       }
 
       // Create form data for file upload
       const formData = new FormData();
       Object.keys(eventData).forEach((key) => {
-        if (key === "imageFile") {
-          formData.append("image", eventData.imageFile);
-        } else {
-          formData.append(key, eventData[key]);
-        }
+        formData.append(key, eventData[key]);
       });
 
       // Add organizer ID
@@ -291,4 +288,3 @@ const CreateEvent = () => {
 };
 
 export default CreateEvent;
-
