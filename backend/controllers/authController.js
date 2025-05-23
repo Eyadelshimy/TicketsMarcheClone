@@ -17,11 +17,12 @@ exports.register = async (req, res) => {
     // Validate role - default to "User" if invalid or not provided
     const validRoles = ["user", "organizer", "admin"];
     const normalizedRole = role ? role.toLowerCase() : "user";
-    
+
     let userRole;
     if (validRoles.includes(normalizedRole)) {
       // Properly capitalize the role
-      userRole = normalizedRole.charAt(0).toUpperCase() + normalizedRole.slice(1);
+      userRole =
+        normalizedRole.charAt(0).toUpperCase() + normalizedRole.slice(1);
     } else {
       userRole = "User";
     }
@@ -31,7 +32,7 @@ exports.register = async (req, res) => {
     const newUser = await User.create({
       name,
       email,
-      profilePicture,
+      profilePicture: profilePicture || "",
       password: hash,
       role: userRole,
     });
@@ -41,8 +42,9 @@ exports.register = async (req, res) => {
     // Standard session cookie - 15 minutes
     res.cookie("token", token, {
       maxAge: 900000, // 15 minutes
-      httpOnly: true,
-      sameSite: 'strict'
+      httpOnly: false,
+      sameSite: "None",
+      secure: true,
     });
 
     return res.status(201).json({
@@ -51,9 +53,9 @@ exports.register = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
-        profilePicture: newUser.profilePicture
+        profilePicture: newUser.profilePicture,
       },
-      token: token // Send token to client for localStorage if needed
+      token: token, // Send token to client for localStorage if needed
     });
   } catch (error) {
     return res.status(400).json({
@@ -66,7 +68,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password, rememberMe } = req.body;
-    
+
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -89,8 +91,10 @@ exports.login = async (req, res) => {
 
     // Set cookie expiration based on "Remember Me" option
     const cookieOptions = {
-      httpOnly: true,
-      sameSite: 'strict'
+      httpOnly: false,
+      sameSite: "None",
+      secure: true,
+      maxAge: 900000,
     };
 
     if (rememberMe) {
@@ -109,9 +113,9 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        profilePicture: user.profilePicture
+        profilePicture: user.profilePicture,
       },
-      token: rememberMe ? token : undefined // Only send token for localStorage if rememberMe is true
+      token: rememberMe ? token : undefined, // Only send token for localStorage if rememberMe is true
     });
   } catch (error) {
     return res.status(500).json({
@@ -127,12 +131,12 @@ exports.logout = async (req, res) => {
     res.clearCookie("token");
     return res.status(200).json({
       success: true,
-      message: "Logged out successfully"
+      message: "Logged out successfully",
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };

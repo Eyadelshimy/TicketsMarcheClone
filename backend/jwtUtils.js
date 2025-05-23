@@ -1,14 +1,11 @@
 const jwt = require("jsonwebtoken");
 
-// Temporary hardcoded secret - MOVE THIS TO .env FILE IN PRODUCTION!
-const JWT_SECRET = "your_super_secure_jwt_secret_key_here"; 
-
 const generateToken = (payload) => {
   const options = {
     expiresIn: "10h", // Token expiration time
   };
 
-  const token = jwt.sign(payload, JWT_SECRET, options);
+  const token = jwt.sign(payload, process.env.JWT_SECRET, options);
   return token;
 };
 
@@ -19,7 +16,7 @@ function authenticateToken(req, res, next) {
   if (authCookie == null) return res.sendStatus(401);
 
   // If there is a cookie, verify it
-  jwt.verify(authCookie, JWT_SECRET, (err, user) => {
+  jwt.verify(authCookie, process.env.JWT_SECRET, (err, user) => {
     // If there is an error, return an error
     if (err) return res.sendStatus(403);
 

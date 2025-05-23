@@ -3,7 +3,7 @@
 const fs = require("fs");
 
 // Connect to your DB
-const db = connect("mongodb://localhost:27017/ticketing-system");
+const db = connect("mongodb://localhost:27017/TicketsMarcheDB");
 
 // Replace with actual ObjectId of a valid organizer
 const organizerId = ObjectId("67fc8f1703887a7a1fc1f460");
