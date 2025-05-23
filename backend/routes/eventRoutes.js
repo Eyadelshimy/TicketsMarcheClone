@@ -9,17 +9,21 @@ const {
   getOrganizerEvents,
 } = require("../controllers/eventController");
 
-const { roleProtect } = require("../middleware/auth");
+const { roleProtect, protect } = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/:id", getEvent);
 router.delete("/:id", deleteEvent);
 router.put("/:id", updateEvent);
 
-router.post("/", roleProtect(["organizer"]), createEvent);
+router.post("/", protect, roleProtect(["organizer"]), createEvent);
 router.get("/", getApprovedEvents);
-router.get("/all", roleProtect(["admin"]), getAllEvents);
-router.get("/organizer/:organizerId", roleProtect(["organizer"]), getOrganizerEvents);
+router.get("/all", protect, roleProtect(["admin"]), getAllEvents);
+router.get(
+  "/organizer/:organizerId",
+  protect,
+  roleProtect(["organizer"]),
+  getOrganizerEvents,
+);
 
 module.exports = router;
-
