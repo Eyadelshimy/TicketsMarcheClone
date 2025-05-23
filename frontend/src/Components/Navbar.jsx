@@ -1,10 +1,21 @@
 // Components/Navbar.jsx
+import {
+  Navbar as BSNavbar,
+  Nav,
+  Container,
+  Form,
+  Row,
+  Col,
+  Dropdown,
+} from "react-bootstrap";
+
+import { FaSearch, FaRegUserCircle } from "react-icons/fa";
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useModal } from "../context/ModalContext";
 import "../assets/css/fonts.css";
-import "../assets/css/buttons.css";
 import "../assets/css/navbar.css";
 import Logo from "../assets/svg/TicketsMarche.svg";
 
@@ -61,169 +72,146 @@ export default function Navbar() {
   };
 
   return (
-    <div className="navbar-container">
-      <nav className="tm-navbar">
-        <div className="container-fluid">
-          <div className="navbar-left">
-            <Link className="navbar-brand" to="/">
-              <img src={Logo} alt="Logo" width="180" height="54" />
-            </Link>
-          </div>
+    <BSNavbar
+      bg="light"
+      expand="lg"
+      className="shadow-lg m-4"
+      style={{
+        borderRadius: "25px",
+        width: "97%",
+      }}
+      sticky="top"
+    >
+      <Container
+        fluid
+        className="d-flex justify-content-between align-middle px-2 mx-3 py-2 my-1"
+      >
+        <BSNavbar.Brand as={Link} className="col-lg-3 me-0" to="/">
+          <img src={Logo} alt="Logo" width="193" height="20" />
+        </BSNavbar.Brand>
 
-          <div className="navbar-center">
-            <div className="search-container">
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Search..."
-              />
-              <button className="search-button">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="9"
-                    cy="9"
-                    r="6"
-                    stroke="black"
-                    strokeWidth="1.5"
-                  />
-                  <path d="M14 14L17 17" stroke="black" strokeWidth="1.5" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div className="navbar-right">
-            <Link to="/events" className="nav-link">
-              Events
-            </Link>
-            <div className="profile-dropdown">
-              <button
-                onClick={handleProfileClick}
-                className="nav-link profile-link"
+        <div
+          className="position-absolute start-50 translate-middle-x"
+          style={{ maxWidth: "400px", width: "100%" }}
+        >
+          <Form
+            align="center"
+            className="d-inline-flex justify-content-center align-items-center"
+          >
+            <Row>
+              <Col
+                xs="auto"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M18 20C18 17.7909 15.3137 16 12 16C8.68629 16 6 17.7909 6 20"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              {showDropdown && (
-                <div className="dropdown-menu">
-                  {isAuthenticated ? (
+                <FaSearch />
+              </Col>
+              <Col xs="auto">
+                <Form.Control
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                  style={{ border: "none", boxShadow: "none" }}
+                />
+              </Col>
+            </Row>
+          </Form>
+        </div>
+
+        {/* Right - Links and Profile */}
+        <Nav className="ms-auto align-items-center">
+          <Nav.Link as={Link} to="/events">
+            Events
+          </Nav.Link>
+
+          <Dropdown
+            show={showDropdown}
+            onToggle={handleProfileClick}
+            align="end"
+          >
+            <Dropdown.Toggle
+              as="button"
+              className="user-dropdown btn btn-light border-0 p-0 bg-transparent ml-2"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <FaRegUserCircle size={25} />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {isAuthenticated ? (
+                <>
+                  <Dropdown.Header>Welcome, {user?.name}</Dropdown.Header>
+                  <Dropdown.Divider />
+                  <Dropdown.Item
+                    onClick={() => handleMenuItemClick("/profile")}
+                  >
+                    My Profile
+                  </Dropdown.Item>
+
+                  {hasRole("organizer") && (
                     <>
-                      <span className="welcome-text">
-                        Welcome, {user?.name}
-                      </span>
-                      <div className="dropdown-divider"></div>
-
-                      {/* Common user links */}
-                      <button
-                        onClick={() => handleMenuItemClick("/profile")}
-                        className="dropdown-item"
+                      <Dropdown.Item
+                        onClick={() => handleMenuItemClick("/my-events")}
                       >
-                        My Profile
-                      </button>
-
-                      {/* Organizer-specific links */}
-                      {hasRole("organizer") && (
-                        <>
-                          <button
-                            onClick={() => handleMenuItemClick("/my-events")}
-                            className="dropdown-item"
-                          >
-                            My Events
-                          </button>
-                          <button
-                            onClick={() => handleMenuItemClick("/create-event")}
-                            className="dropdown-item"
-                          >
-                            Create Event
-                          </button>
-                          <button
-                            onClick={() =>
-                              handleMenuItemClick("/event-analytics")
-                            }
-                            className="dropdown-item"
-                          >
-                            Event Analytics
-                          </button>
-                        </>
-                      )}
-
-                      {/* Admin-specific links */}
-                      {hasRole("admin") && (
-                        <>
-                          <div className="dropdown-divider"></div>
-                          <span className="dropdown-header">Admin</span>
-                          <button
-                            onClick={() => handleMenuItemClick("/admin/users")}
-                            className="dropdown-item"
-                          >
-                            User Management
-                          </button>
-                          <button
-                            onClick={() => handleMenuItemClick("/admin/events")}
-                            className="dropdown-item"
-                          >
-                            Event Management
-                          </button>
-                        </>
-                      )}
-
-                      <div className="dropdown-divider"></div>
-                      <button
-                        onClick={handleLogout}
-                        className="dropdown-item logout-item"
+                        My Events
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => handleMenuItemClick("/create-event")}
                       >
-                        Logout
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        onClick={handleOpenLoginModal}
-                        className="dropdown-item"
+                        Create Event
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => handleMenuItemClick("/event-analytics")}
                       >
-                        Login
-                      </button>
-                      <div className="dropdown-divider"></div>
-                      <button
-                        onClick={handleOpenRegisterModal}
-                        className="dropdown-item"
-                      >
-                        Sign Up
-                      </button>
+                        Event Analytics
+                      </Dropdown.Item>
                     </>
                   )}
-                </div>
+
+                  {hasRole("admin") && (
+                    <>
+                      <Dropdown.Divider />
+                      <Dropdown.Header>Admin</Dropdown.Header>
+                      <Dropdown.Item
+                        onClick={() => handleMenuItemClick("/admin/users")}
+                      >
+                        User Management
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => handleMenuItemClick("/admin/events")}
+                      >
+                        Event Management
+                      </Dropdown.Item>
+                    </>
+                  )}
+
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleLogout} className="text-danger">
+                    Logout
+                  </Dropdown.Item>
+                </>
+              ) : (
+                <>
+                  <Dropdown.Item onClick={handleOpenLoginModal}>
+                    Login
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleOpenRegisterModal}>
+                    Sign Up
+                  </Dropdown.Item>
+                </>
               )}
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Nav>
+      </Container>
+    </BSNavbar>
   );
 }
