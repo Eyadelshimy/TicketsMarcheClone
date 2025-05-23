@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 import "../assets/css/events.css";
 
 // Placeholder image URL - replace with actual images later
@@ -90,11 +92,13 @@ const EventsPage = () => {
   ];
 
   const location = useLocation();
-
+  //const [events, setEvents] = useState([]); {/*Events being fetched from*/}
+  
+  const [searchParams] = useSearchParams();
   // State for filters
   const [filters, setFilters] = useState({
-    search: location.state?.search || "",
-    category: "",
+    search: location.state?.search || "" ,
+    category:  searchParams.get("category") || "",
     location: "",
   });
 
