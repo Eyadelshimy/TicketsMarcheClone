@@ -80,7 +80,7 @@ export default function Navbar() {
         borderRadius: "25px",
         width: "97%",
       }}
-      sticky="top"
+      fixed="top"
     >
       <Container
         fluid
