@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { users, auth } from "../Connections/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useModal } from "./ModalContext";
 import { useCookies } from "react-cookie";
 
@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
   const { openLoginModal } = useModal();
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
@@ -20,7 +21,10 @@ export const AuthProvider = ({ children }) => {
     const checkLoggedIn = async () => {
       try {
         const savedToken = cookies["token"];
-        if (savedToken === null || savedToken === undefined) {
+        if (
+          (savedToken === null || savedToken === undefined) &&
+          (location.pathname !== "/login" || location.pathname !== "/register")
+        ) {
           openLoginModal();
           return;
         }
