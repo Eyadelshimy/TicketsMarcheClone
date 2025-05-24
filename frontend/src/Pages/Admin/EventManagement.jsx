@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaCheck, FaTimes, FaEye, FaChartBar } from "react-icons/fa";
+import { FaCheck, FaTimes, FaEye, FaSearch } from "react-icons/fa";
 import "../../assets/css/admin.css";
+import { events as eventsConnection } from "../../Connections/axios";
+import EventDescriptionModal from "../../Components/EventDecriptionModal";
+
 const EventManagement = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,22 +21,9 @@ const EventManagement = () => {
   const fetchEvents = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "http://localhost:5000/api/v1/events/admin",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        },
-      );
+      const response = await eventsConnection.get("/all");
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch events");
-      }
-
-      const data = await response.json();
+      const data = response.data;
       setEvents(data.data || []);
     } catch (err) {
       console.error("Error fetching events:", err);
@@ -45,21 +35,9 @@ const EventManagement = () => {
 
   const handleStatusChange = async (eventId, newStatus) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/v1/events/${eventId}/status`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status: newStatus }),
-          credentials: "include",
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update event status");
-      }
+      const response = eventsConnection.put(`/${eventId}`, {
+        status: newStatus,
+      });
 
       // Update the event in state
       setEvents((prevEvents) =>
@@ -169,7 +147,7 @@ const EventManagement = () => {
             <div className="col-md-6">
               <div className="input-group">
                 <span className="input-group-text">
-                  <i className="fas fa-search"></i>
+                  <FaSearch />
                 </span>
                 <input
                   type="text"
@@ -214,18 +192,18 @@ const EventManagement = () => {
                     <tr key={event._id}>
                       <td>{event._id.slice(-6)}</td>
                       <td>{event.title}</td>
-                      <td>{event.organizer?.name || "Unknown"}</td>
+                      <td>{event.organizer}</td>
                       <td>{new Date(event.date).toLocaleDateString()}</td>
                       <td>{event.location}</td>
                       <td>
-                        {event.availableTickets}/{event.totalTickets}
+                        {event.remainingTickets}/{event.totalTickets}
                       </td>
                       <td>
                         <span
                           className={`badge ${
-                            event.status === "approved"
+                            event.status.toLowerCase() === "approved"
                               ? "bg-success"
-                              : event.status === "pending"
+                              : event.status.toLowerCase() === "pending"
                                 ? "bg-warning text-dark"
                                 : "bg-danger"
                           }`}
@@ -241,12 +219,12 @@ const EventManagement = () => {
                         >
                           <FaEye />
                         </button>
-                        {event.status === "pending" && (
+                        {event.status.toLowerCase() === "pending" && (
                           <>
                             <button
                               className="btn btn-sm btn-outline-success me-1"
                               onClick={() =>
-                                handleStatusChange(event._id, "approved")
+                                handleStatusChange(event._id, "Approved")
                               }
                               title="Approve Event"
                             >
@@ -255,7 +233,7 @@ const EventManagement = () => {
                             <button
                               className="btn btn-sm btn-outline-danger"
                               onClick={() =>
-                                handleStatusChange(event._id, "declined")
+                                handleStatusChange(event._id, "Declined")
                               }
                               title="Decline Event"
                             >
@@ -281,152 +259,16 @@ const EventManagement = () => {
 
       {/* Event Details Modal */}
       {isViewingDetails && selectedEvent && (
-        <div className="modal show d-block" tabIndex="-1">
-          <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{selectedEvent.title}</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setIsViewingDetails(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div className="row">
-                  <div className="col-md-6">
-                    <img
-                      src={
-                        selectedEvent.image ||
-                        "https://via.placeholder.com/400x250?text=Event+Image"
-                      }
-                      alt={selectedEvent.title}
-                      className="img-fluid rounded mb-3"
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <h4>Event Details</h4>
-                    <p>
-                      <strong>Date:</strong>{" "}
-                      {new Date(selectedEvent.date).toLocaleDateString()}
-                    </p>
-                    <p>
-                      <strong>Time:</strong>{" "}
-                      {new Date(selectedEvent.date).toLocaleTimeString()}
-                    </p>
-                    <p>
-                      <strong>Location:</strong> {selectedEvent.location}
-                    </p>
-                    <p>
-                      <strong>Price:</strong> ${selectedEvent.price}
-                    </p>
-                    <p>
-                      <strong>Tickets:</strong> {selectedEvent.availableTickets}
-                      /{selectedEvent.totalTickets}
-                    </p>
-                    <p>
-                      <strong>Status:</strong>{" "}
-                      <span
-                        className={`badge ${
-                          selectedEvent.status === "approved"
-                            ? "bg-success"
-                            : selectedEvent.status === "pending"
-                              ? "bg-warning text-dark"
-                              : "bg-danger"
-                        }`}
-                      >
-                        {selectedEvent.status}
-                      </span>
-                    </p>
-                    <p>
-                      <strong>Organizer:</strong>{" "}
-                      {selectedEvent.organizer?.name}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-3">
-                  <h5>Description</h5>
-                  <p>{selectedEvent.description}</p>
-                </div>
-
-                <div className="mt-3">
-                  <h5>Bookings</h5>
-                  {selectedEvent.bookings &&
-                  selectedEvent.bookings.length > 0 ? (
-                    <table className="table table-sm">
-                      <thead>
-                        <tr>
-                          <th>User</th>
-                          <th>Tickets</th>
-                          <th>Total Price</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {selectedEvent.bookings.map((booking, index) => (
-                          <tr key={index}>
-                            <td>{booking.user?.name || "Unknown User"}</td>
-                            <td>{booking.quantity}</td>
-                            <td>${booking.totalPrice}</td>
-                            <td>
-                              <span
-                                className={`badge ${
-                                  booking.status === "confirmed"
-                                    ? "bg-success"
-                                    : "bg-danger"
-                                }`}
-                              >
-                                {booking.status}
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    <p className="text-muted">No bookings for this event yet</p>
-                  )}
-                </div>
-              </div>
-              <div className="modal-footer">
-                {selectedEvent.status === "pending" && (
-                  <>
-                    <button
-                      className="btn btn-success"
-                      onClick={() => {
-                        handleStatusChange(selectedEvent._id, "approved");
-                        setIsViewingDetails(false);
-                      }}
-                    >
-                      <FaCheck className="me-1" /> Approve Event
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => {
-                        handleStatusChange(selectedEvent._id, "declined");
-                        setIsViewingDetails(false);
-                      }}
-                    >
-                      <FaTimes className="me-1" /> Decline Event
-                    </button>
-                  </>
-                )}
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setIsViewingDetails(false)}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="modal-backdrop fade show"></div>
-        </div>
+        <EventDescriptionModal
+          show={isViewingDetails}
+          handleClose={() => setIsViewingDetails(false)}
+          image={selectedEvent.image}
+          title={selectedEvent.title}
+          description={selectedEvent.description}
+        />
       )}
     </div>
   );
 };
 
 export default EventManagement;
-

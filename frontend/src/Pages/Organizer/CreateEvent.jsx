@@ -79,7 +79,7 @@ const CreateEvent = () => {
       ];
       const missingFields = requiredFields.filter((field) => !eventData[field]);
 
-      if (missingFields.length > 0 || !eventData.imageFile) {
+      if (missingFields.length > 0) {
         throw new Error(
           `Please fill all required fields: ${missingFields.join(", ")}`,
         );

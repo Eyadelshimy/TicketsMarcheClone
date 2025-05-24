@@ -60,27 +60,28 @@ module.exports = {
       }
 
       // Server error
-      res.status(500).json({ success: false, error: error.message });
+      return res.status(500).json({ success: false, error: error.message });
     }
   },
 
   getAllEvents: async (req, res) => {
     try {
       const events = await Event.find(); // Fetch all events from the database
-      res.status(200).json({ success: true, data: events });
+      return res.status(200).json({ success: true, data: events });
     } catch (error) {
-      res.status(500).json({ success: false, error: "Server error" });
+      return res.status(500).json({ success: false, error: "Server error" });
     }
   },
 
   getOrganizerEvents: async (req, res) => {
     try {
       const organizerId = req.params.organizerId;
-      
+
       // Find all events where the organizer field matches the given ID
-      const events = await Event.find({ organizer: organizerId })
-        .sort({ createdAt: -1 }); // Sort by creation date, newest first
-      
+      const events = await Event.find({ organizer: organizerId }).sort({
+        createdAt: -1,
+      }); // Sort by creation date, newest first
+
       res.status(200).json({ success: true, data: events });
     } catch (error) {
       console.error("Error fetching organizer events:", error);
@@ -99,7 +100,7 @@ module.exports = {
 
   updateEvent: async (req, res) => {
     try {
-      let event = await Event.updateOne({ eventID: req.params.id }, req.body, {
+      let event = await Event.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
       });
       res.status(200).json({ success: true, data: event });
@@ -119,11 +120,10 @@ module.exports = {
 
   deleteEvent: async (req, res) => {
     try {
-      let event = await Event.deleteOne({ eventID: req.params.id });
+      let event = await Event.findByIdAndDelete(req.params.id);
       res.status(200).json({ success: true, data: event });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
   },
 };
-
