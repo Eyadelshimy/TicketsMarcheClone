@@ -5,8 +5,6 @@ import Modal from "react-bootstrap/Modal";
 function EventDescriptionModal({
   show,
   handleClose,
-  handleStatusChange,
-  status,
   image,
   title,
   description,
