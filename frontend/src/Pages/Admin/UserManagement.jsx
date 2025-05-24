@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ConfirmModal from "../../Components/ConfirmModal";
+import EditUserRoleModal from "../../Components/EditUserRoleModal";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash, FaUserShield } from "react-icons/fa";
+import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
 import { users as usersAxios } from "../../Connections/axios";
 import "../../assets/css/admin.css";
 
@@ -128,15 +129,6 @@ const UserManagement = () => {
 
   return (
     <div className="container my-5">
-      {/* Delete Confirmation Modal */}
-      {isConfirmingDelete && selectedUser && (
-        <ConfirmModal
-          title={"Confirm Delete User"}
-          body={"Are you sure?"}
-          onCancel={() => setIsConfirmingDelete(false)}
-          onConfirm={handleDeleteUser}
-        />
-      )}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>User Management</h1>
         <div>
@@ -189,7 +181,7 @@ const UserManagement = () => {
             <div className="col-md-6">
               <div className="input-group">
                 <span className="input-group-text">
-                  <i className="fas fa-search"></i>
+                  <FaSearch />
                 </span>
                 <input
                   type="text"
@@ -278,61 +270,27 @@ const UserManagement = () => {
         </div>
       </div>
 
-      {/* Edit Role Modal */}
+      {/* Delete Confirmation Modal */}
+      {isConfirmingDelete && selectedUser && (
+        <ConfirmModal
+          title={"Confirm Delete User"}
+          body={"Are you sure?"}
+          onCancel={() => setIsConfirmingDelete(false)}
+          onConfirm={handleDeleteUser}
+        />
+      )}
+
       {isEditingRole && selectedUser && (
-        <div className="modal show d-block" tabIndex="-1">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Update User Role</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setIsEditingRole(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p>
-                  Change role for <strong>{selectedUser.name}</strong>
-                </p>
-                <div className="mb-3">
-                  <label htmlFor="role" className="form-label">
-                    Select Role
-                  </label>
-                  <select
-                    id="role"
-                    className="form-select"
-                    value={newRole}
-                    onChange={(e) => setNewRole(e.target.value)}
-                  >
-                    <option value="">-- Select Role --</option>
-                    <option value="user">User</option>
-                    <option value="organizer">Organizer</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => setIsEditingRole(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleUpdateRole}
-                  disabled={!newRole}
-                >
-                  <FaUserShield className="me-1" /> Update Role
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="modal-backdrop fade show"></div>
-        </div>
+        <EditUserRoleModal
+          name={selectedUser.name}
+          show={isEditingRole}
+          handleClose={() => setIsEditingRole(false)}
+          onConfirm={() => {
+            setIsEditingRole(false);
+            handleUpdateRole();
+          }}
+          onRoleChange={(role) => setNewRole(role)}
+        />
       )}
     </div>
   );
