@@ -17,8 +17,8 @@ const MyEvents = () => {
   };
 
   useEffect(() => {
-    fetchMyEvents();
-  }, []);
+    if (user?._id !== undefined) fetchMyEvents();
+  }, [user]);
 
   const fetchMyEvents = async () => {
     try {
@@ -171,4 +171,3 @@ const MyEvents = () => {
 };
 
 export default MyEvents;
-
