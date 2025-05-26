@@ -1,89 +1,110 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaTicketAlt } from "react-icons/fa";
+import { events } from "../Connections/axios";
 import { Link } from "react-router-dom";
-import "../assets/css/home.css";
 import EventCard from "../Components/EventCard";
-import VenueCard from "../Components/VenueCard";
 import CategoryCard from "../Components/CategoryCard";
 import HotEventCard from "../Components/HotEventCard";
 
-// Placeholder image URLs - replace with actual images later
-const placeholderImage = "https://placehold.co/600x400?text=Event+Image";
-// const organizerLogo = "https://placehold.co/150x50?text=Organizer";
+import "../assets/css/home.css";
+import getCategoryImageSource from "../utils/categoryImages";
 
 const HomePage = () => {
-  // Featured event state
-  const [featuredEvent] = useState({
-    title: "Disco Misr Festival",
-    slug: "disco-misr-festival",
-    image: placeholderImage,
-    location: "Zed Park",
-    date: "May 30, 2023",
-    description: "A day-long festival featuring Disco Misr and other top DJs.",
+  const [eventsFetchSuccess, setEventsFetchSuccess] = useState(false);
+  const [featuredEvent, setFeaturedEvent] = useState({});
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [hotEvents, setHotEvents] = useState([]);
+  const [_, setIsLoading] = useState(true);
+
+  const [categories, setCategories] = useState([
+    { title: "Nightlife", count: 0, image: "" },
+    { title: "Concerts", count: 0, image: "" },
+    { title: "Comedy", count: 0, image: "" },
+    { title: "Art & Theatre", count: 0, image: "" },
+    { title: "Festival", count: 0, image: "" },
+    { title: "Activities", count: 0, image: "" },
+  ]);
+
+  let cI = 0;
+  categories.forEach((categoryDesc) => {
+    categories[cI].image = getCategoryImageSource(categoryDesc.title);
+    cI++;
   });
 
-  // Sample data
-  const categories = [
-    { title: "Nightlife", count: 2, image: placeholderImage },
-    { title: "Concerts", count: 8, image: placeholderImage },
-    { title: "Comedy", count: 1, image: placeholderImage },
-    { title: "Festival", count: 1, image: placeholderImage },
-  ];
+  useEffect(() => {
+    events.get("/").then((response) => {
+      if (response.data.success == true) setEventsFetchSuccess(true);
 
-  const venues = [
-    { title: "Boom Room, Open Air Mall, Madinaty", image: placeholderImage },
-    { title: "Drama Hall", image: placeholderImage },
-    { title: "El Rihany Theater", image: placeholderImage },
-    { title: "Jesuit Cairo", image: placeholderImage },
-  ];
+      const priceSortedEvents = [...response.data.data].sort(
+        (a, b) => a.ticketPricing - b.ticketPricing,
+      );
 
-  const hotEvents = [
-    {
-      title: "Stand Up Comedy",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "May 28, 2023",
-    },
-    {
-      title: "Adam Port Live",
-      image: placeholderImage,
-      location: "New Capital",
-      date: "May 30, 2023",
-    },
-    {
-      title: "Diana Karazon",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 3, 2023",
-    },
-    {
-      title: "Jeff Dunham",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 10, 2023",
-    },
-  ];
+      console.log(response.data.data);
 
-  const upcomingEvents = [
-    {
-      title: "Empower Her Art Forum",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 15, 2023",
-    },
-    {
-      title: "Layaly Dalida",
-      image: placeholderImage,
-      location: "Alexandria",
-      date: "June 18, 2023",
-    },
-    {
-      title: "Tetrat W Zekrayat",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 25, 2023",
-    },
-  ];
+      setFeaturedEvent(priceSortedEvents[0]);
+
+      let cI = 0;
+      categories.forEach((categoryDesc) => {
+        let count = 0;
+        const categoriesMinusCurrent = categories.filter(
+          (_, idx) => idx !== cI,
+        );
+
+        response.data.data.forEach((event) => {
+          if (event.category === categoryDesc.title) count++;
+        });
+
+        let modCategoryDesc = categories[cI];
+        modCategoryDesc.count = count;
+        setCategories([...categoriesMinusCurrent, categoryDesc]);
+
+        count = 0;
+        cI++;
+      });
+
+      var hotdEvents = response.data.data.sort(
+        (a, b) =>
+          a.remainingTickets / a.totalTickets -
+          b.remainingTickets / b.totalTickets,
+      );
+
+      hotdEvents = hotdEvents.filter((ev) => ev.remainingTickets != 0);
+
+      let hotfEvents = [];
+      hotdEvents.forEach((ev) => {
+        let hotfEvent = {
+          title: "",
+          image: "",
+          location: "",
+          date: "",
+        };
+
+        Object.keys(hotfEvent).forEach((key) => (hotfEvent[key] = ev[key]));
+      });
+
+      setHotEvents(hotfEvents);
+
+      let upcoming = response.data.data.sort(
+        (a, b) => new Date(a.date) - new Date(b.date),
+      );
+
+      upcoming = upcoming.filter((upcomingEv) => {
+        const now = new Date();
+        const target = new Date(upcomingEv.date);
+
+        const start = new Date(now.setHours(0, 0, 0, 0)); // today at midnight
+        const end = new Date(start);
+        end.setDate(end.getDate() + 7);
+
+        return target >= start && target <= end;
+      });
+
+      setUpcomingEvents(upcoming);
+      setIsLoading(eventsFetchSuccess);
+    });
+  }, []);
+
+  const options = { year: "numeric", month: "long", day: "numeric" };
 
   return (
     <div className="home-container">
@@ -99,7 +120,11 @@ const HomePage = () => {
                   <strong>Location:</strong> {featuredEvent.location}
                 </p>
                 <p>
-                  <strong>Date:</strong> {featuredEvent.date}
+                  <strong>Date:</strong>{" "}
+                  {new Date(featuredEvent.date).toLocaleDateString(
+                    "en-US",
+                    options,
+                  )}
                 </p>
               </div>
 
@@ -119,7 +144,7 @@ const HomePage = () => {
               </div>
             </div>
             <img
-              src={placeholderImage}
+              src={featuredEvent.image}
               alt={featuredEvent.title}
               className="event-image"
             />
@@ -146,29 +171,6 @@ const HomePage = () => {
             <div className="categories-grid">
               {categories.map((category, index) => (
                 <CategoryCard key={index} {...category} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Venues Section */}
-        <section className="venues-section home-section-mt">
-          <div className="section-header d-flex justify-content-between align-items-center mb-4">
-            <h2>Venues</h2>
-            <div className="carousel-navigation">
-              <button className="carousel-prev" aria-label="Previous">
-                <i className="fas fa-arrow-left"></i>
-              </button>
-              <button className="carousel-next" aria-label="Next">
-                <i className="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <div className="venues-carousel">
-            <div className="venues-grid">
-              {venues.map((venue, index) => (
-                <VenueCard key={index} {...venue} />
               ))}
             </div>
           </div>

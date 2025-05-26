@@ -24,13 +24,12 @@ const CreateEvent = () => {
   const [imagePreview, setImagePreview] = useState(null);
 
   const categories = [
-    "Concert",
-    "Sports",
-    "Theater",
-    "Conference",
-    "Exhibition",
+    "Nightlife",
+    "Concerts",
+    "Art & Theatre",
+    "Comedy",
     "Festival",
-    "Workshop",
+    "Activities",
     "Other",
   ];
 
