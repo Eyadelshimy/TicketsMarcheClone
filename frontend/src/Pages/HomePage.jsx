@@ -1,65 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaTicketAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../assets/css/home.css";
 import EventCard from "../Components/EventCard";
 import VenueCard from "../Components/VenueCard";
 import CategoryCard from "../Components/CategoryCard";
 import HotEventCard from "../Components/HotEventCard";
-import { FaTicketAlt } from "react-icons/fa";
 
 // Placeholder image URLs - replace with actual images later
 const placeholderImage = "https://placehold.co/600x400?text=Event+Image";
-const organizerLogo = "https://placehold.co/150x50?text=Organizer";
+// const organizerLogo = "https://placehold.co/150x50?text=Organizer";
 
-/*
-const CategoryCard = ({ title, count, image }) => (
-    <div className="category-card">
-        <Link to={`/events/category/${title.toLowerCase()}`} className="category-link">
-            <div className="category-image-container">
-                <img src={image || placeholderImage} alt={title} className="category-image" />
-            </div>
-            <div className="category_button">
-                <div className="category_button_left">
-                    <span className="body-4-bold">{title}</span>
-                    <span className="body-7 count">{count} Events</span>
-                </div>
-                <div className="category_button_right">
-                    <i className="fas fa-arrow-right"></i>
-                </div>
-            </div>
-        </Link>
-    </div>
-);
-//done 
-const VenueCard = ({ title, image }) => (
-    <div className="venue-card">
-        <Link to={`/venues/${title.toLowerCase().replace(/\s+/g, '-')}`} className="venue-link">
-            <div className="venue-image-container">
-                <img src={image || placeholderImage} alt={title} className="venue_image" />
-                <div className="venue-overlay">
-                    <h3 className="venue-title">{title}</h3>
-                </div>
-            </div>
-        </Link>
-    </div>
-);
-
-done
-const HotEventCard = ({ title, image, date }) => (
-    <div className="hot-event-card">
-        <Link to={`/events/${title.toLowerCase().replace(/\s+/g, '-')}`}>
-            <div className="hot-event-image-container">
-                <img src={image || placeholderImage} alt={title} className="event-card-image" />
-                <div className="hot-event-overlay">
-                    <h3 className="event-title">{title}</h3>
-                    <p className="event-date">{date}</p>
-                </div>
-            </div>
-        </Link>
-    </div>
-);
-*/
 const HomePage = () => {
+  // Featured event state
+  const [featuredEvent] = useState({
+    title: "Disco Misr Festival",
+    slug: "disco-misr-festival",
+    image: placeholderImage,
+    location: "Zed Park",
+    date: "May 30, 2023",
+    description: "A day-long festival featuring Disco Misr and other top DJs.",
+  });
+
   // Sample data
   const categories = [
     { title: "Nightlife", count: 2, image: placeholderImage },
@@ -131,20 +93,34 @@ const HomePage = () => {
           <div className="splide__slide">
             <div className="event_details">
               <div>
-                <EventCard />
+                <h2>{featuredEvent.title}</h2>
+                <p>{featuredEvent.description}</p>
+                <p>
+                  <strong>Location:</strong> {featuredEvent.location}
+                </p>
+                <p>
+                  <strong>Date:</strong> {featuredEvent.date}
+                </p>
               </div>
 
-              <div className="button-container text-center">
-                <button className="btn btn-tm-primary text-center">
-                  <FaTicketAlt />
-                  Book Now
-                </button>
-                <button className="btn btn-tm-link more-info">More Info</button>
+              <div className="button-container">
+                <Link
+                  to={`/events/${featuredEvent.slug}`}
+                  className="btn btn-tm-primary"
+                >
+                  <FaTicketAlt className="me-2" /> Book Now
+                </Link>
+                <Link
+                  to={`/events/${featuredEvent.slug}`}
+                  className="btn btn-tm-link more-info"
+                >
+                  More Info
+                </Link>
               </div>
             </div>
             <img
               src={placeholderImage}
-              alt="Disco Misr Festival"
+              alt={featuredEvent.title}
               className="event-image"
             />
           </div>
@@ -255,4 +231,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

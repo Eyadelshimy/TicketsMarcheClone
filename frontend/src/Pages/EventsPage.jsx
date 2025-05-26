@@ -1,37 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { events } from "../Connections/axios";
 import Spinner from "react-bootstrap/Spinner";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import "../assets/css/events.css";
 
 // Placeholder image URL - replace with actual images later
 const placeholderImage = "https://placehold.co/600x400?text=Event+Image";
 
-const EventCard = ({ title, image, location, date, category }) => (
-  <div className="event-card">
-    <Link
-      to={`/events/${title.toLowerCase().replace(/\s+/g, "-")}`}
-      className="event-link"
-    >
-      <div className="event-image-container">
-        <img
-          src={image || placeholderImage}
-          alt={title}
-          className="event-card-image"
-        />
-        <span className="event-label">{location}</span>
-      </div>
-      <div className="event-info">
-        <span className="event-category">{category}</span>
-        <h3 className="event-title">{title}</h3>
-        <p className="event-date">{date}</p>
-      </div>
-    </Link>
-  </div>
-);
+const EventCard = ({ title, image, location, date, category }) => {
+  // Generate slug from title
+  const slug = title.toLowerCase().replace(/\s+/g, "-");
+
+  return (
+    <div className="event-card">
+      <Link to={`/events/${slug}`} className="event-link">
+        <div className="event-image-container">
+          <img
+            src={image || placeholderImage}
+            alt={title}
+            className="event-card-image"
+          />
+          <span className="event-label">{location}</span>
+        </div>
+        <div className="event-info">
+          <span className="event-category">{category}</span>
+          <h3 className="event-title">{title}</h3>
+          <p className="event-date">{date}</p>
+        </div>
+      </Link>
+    </div>
+  );
+};
 
 const EventsPage = () => {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,14 +47,10 @@ const EventsPage = () => {
     });
   });
 
-  let search = "";
-
-  if (location.state?.search !== undefined) search = location.state.search;
-
   // State for filters
   const [filters, setFilters] = useState({
-    search: "",
-    category: "",
+    search: location.state?.search || "",
+    category: searchParams.get("category") || "",
     location: "",
   });
 
@@ -72,6 +71,17 @@ const EventsPage = () => {
       [name]: value,
     }));
   };
+
+  // Effect to handle URL query parameters when the page loads
+  useEffect(() => {
+    const categoryParam = searchParams.get("category");
+    if (categoryParam) {
+      setFilters((prev) => ({
+        ...prev,
+        category: categoryParam,
+      }));
+    }
+  }, [searchParams]);
 
   // Filter events based on filters
   useEffect(() => {
@@ -101,11 +111,24 @@ const EventsPage = () => {
   if (isLoading) return <Spinner animation="border" />;
 
   return (
-    <div>
-      <div className="events-page-container">
-        <div className="events-header">
-          <h1>All Events</h1>
-          <p>Find the best events in your area</p>
+    <div className="events-page-container">
+      <div className="events-header">
+        <h1>
+          {filters.category ? `${filters.category} Events` : "All Events"}
+        </h1>
+        <p>Find the best events in your area</p>
+      </div>
+
+      <div className="filters-container">
+        <div className="filter-item">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search events..."
+            value={filters.search}
+            onChange={handleFilterChange}
+            className="filter-input"
+          />
         </div>
 
         <div className="filters-container">

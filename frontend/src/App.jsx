@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./Components/Layout";
 import HomePage from "./Pages/HomePage";
 import EventsPage from "./Pages/EventsPage";
+import EventDetailsPage from "./Pages/EventDetailsPage";
+import VenueDetailsPage from "./Pages/VenueDetailsPage";
 import ProfilePage from "./Pages/ProfilePage";
 import { AuthProvider } from "./context/AuthContext";
 import { ModalProvider } from "./context/ModalContext";
@@ -39,6 +41,8 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route index element={<HomePage />} />
                 <Route path="events" element={<EventsPage />} />
+                <Route path="events/:eventSlug" element={<EventDetailsPage />} />
+                <Route path="venues/:venueSlug" element={<VenueDetailsPage />} />
                 <Route path="unauthorized" element={<UnauthorizedPage />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
