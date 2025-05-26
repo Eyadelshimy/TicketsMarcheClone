@@ -1,0 +1,253 @@
+/* Event Details Page Styles */
+
+:root {
+  --main-color: #f7c53f;
+  --main-color-dark: #e5b223;
+  --main-color-light: #fae7a4;
+  --text-color: #212121;
+  --secondary-text: #666;
+  --bg-light: #f8f9fa;
+}
+
+.event-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+.booking-success-banner {
+  background-color: var(--main-color);
+  color: var(--text-color);
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  position: relative;
+  animation: slideDown 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(247, 197, 63, 0.2);
+}
+
+.close-success-banner {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.close-success-banner:hover {
+  opacity: 1;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.event-details-header {
+  background-color: var(--bg-light);
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.event-header-content {
+  text-align: center;
+}
+
+.event-category-badge {
+  display: inline-block;
+  background-color: var(--main-color);
+  color: var(--text-color);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.event-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.event-meta {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.event-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--secondary-text);
+}
+
+.event-details-content {
+  display: flex;
+  gap: 30px;
+}
+
+.event-main-content {
+  flex: 2;
+}
+
+.event-sidebar {
+  flex: 1;
+}
+
+.event-image-gallery {
+  margin-bottom: 30px;
+}
+
+.event-main-image {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.event-description-section,
+.event-venue-section,
+.event-organizer-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.event-description-section h2,
+.event-venue-section h2,
+.event-organizer-section h2 {
+  font-size: 20px;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--main-color);
+}
+
+.ticket-price-card,
+.share-event-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.ticket-price-card h3,
+.share-event-card h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--main-color);
+}
+
+.ticket-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--main-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.book-ticket-button {
+  display: block;
+  width: 100%;
+  background-color: var(--main-color);
+  color: var(--text-color);
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 10px rgba(247, 197, 63, 0.2);
+}
+
+.book-ticket-button:hover {
+  background-color: var(--main-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(247, 197, 63, 0.3);
+}
+
+.social-share-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.share-button {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-color);
+  transition: background-color 0.3s;
+  font-weight: 600;
+}
+
+.share-button:hover {
+  opacity: 0.9;
+}
+
+.facebook {
+  background-color: var(--main-color-light);
+}
+
+.twitter {
+  background-color: var(--main-color-light);
+}
+
+.whatsapp {
+  background-color: var(--main-color-light);
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 20px;
+  color: var(--main-color);
+}
+
+.event-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 20px;
+  color: #e74c3c;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .event-details-content {
+    flex-direction: column;
+  }
+  
+  .event-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+} 

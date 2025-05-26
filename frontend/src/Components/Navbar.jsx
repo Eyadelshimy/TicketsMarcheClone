@@ -72,6 +72,16 @@ export default function Navbar() {
     return user?.role?.toLowerCase() === role.toLowerCase();
   };
 
+  // Handle search form submission
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate("/events", {
+        state: { search: searchTerm.trim().toLowerCase() },
+      });
+    }
+  };
+
   return (
     <BSNavbar
       bg="light"
@@ -80,6 +90,8 @@ export default function Navbar() {
       style={{
         borderRadius: "25px",
         width: "97%",
+        background: "rgba(255, 255, 255, 0.9) !important",
+        backdropFilter: "blur(10px)",
       }}
       fixed="top"
     >
@@ -93,40 +105,23 @@ export default function Navbar() {
 
         <div
           className="position-absolute start-50 translate-middle-x"
-          style={{ maxWidth: "400px", width: "100%" }}
+          style={{ maxWidth: "400px", width: "100%", zIndex: 10 }}
         >
           <Form
-            align="center"
             className="d-inline-flex justify-content-center align-items-center"
-            onSubmit={(e) => {
-              e.preventDefault();
-              navigate("/events", {
-                state: { search: searchTerm.trim().toLowerCase() },
-              });
-            }}
+            onSubmit={handleSearchSubmit}
           >
-            <Row>
-              <Col
-                xs="auto"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <FaSearch />
-              </Col>
-              <Col xs="auto">
-                <Form.Control
-                  type="text"
-                  placeholder="Search"
-                  className="mr-sm-2"
-                  style={{ border: "none", boxShadow: "none" }}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </Col>
-            </Row>
+            <div className="navbar-search-container d-flex align-items-center">
+              <FaSearch className="navbar-search-icon" />
+              <Form.Control
+                type="text"
+                placeholder="Search events..."
+                className="navbar-search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                aria-label="Search"
+              />
+            </div>
           </Form>
         </div>
 
@@ -143,14 +138,9 @@ export default function Navbar() {
           >
             <Dropdown.Toggle
               as="button"
-              className="user-dropdown btn btn-light border-0 p-0 bg-transparent ml-2"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              className="user-dropdown btn btn-light border-0 p-0 bg-transparent profile-icon-container"
             >
-              <FaRegUserCircle size={25} />
+              <FaRegUserCircle className="profile-icon" size={28} />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
