@@ -116,21 +116,20 @@ const HomePage = () => {
           <div className="splide__slide">
             <div className="event_details">
               <div>
-                <h2>{featuredEvent.title}</h2>
-                <p>{featuredEvent.description}</p>
-                <p>
-                  <strong>Location:</strong> {featuredEvent.location}
-                </p>
-                <p>
-                  <strong>Date:</strong>{" "}
-                  {new Date(featuredEvent.date).toLocaleDateString(
+                <h2 className="text-center">{featuredEvent.title}</h2>{" "}
+                <div className="event-date text-center">
+                  {new Date(featuredEvent.date).toLocaleString(
                     "en-US",
                     options,
-                  )}
-                </p>
+                  )}{" "}
+                </div>
+                <div className="event-location text-center">
+                  <strong>The Green River-New Capital</strong>
+                </div>
+                <p className="mt-5">{featuredEvent.description}</p>
               </div>
 
-              <div className="button-container">
+              <div className="mt-auto button-container">
                 <Link
                   to={`/events/${featuredEvent.slug}`}
                   className="btn btn-tm-primary"
@@ -138,7 +137,7 @@ const HomePage = () => {
                   <FaTicketAlt className="me-2" /> Book Now
                 </Link>
                 <Link
-                  to={`/events/${featuredEvent.slug}`}
+                  to={`/events/${featuredEvent._id}`}
                   className="btn btn-tm-link more-info"
                 >
                   More Info

@@ -16,6 +16,7 @@ import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
+import EventAnalytics from "./Pages/Organizer/EventAnalytics";
 
 // User pages - removed MyBookings import since it's redundant with profile page
 
@@ -42,10 +43,6 @@ function App() {
                 <Route index element={<HomePage />} />
                 <Route path="events" element={<EventsPage />} />
                 <Route path="events/:eventId" element={<EventDetailsPage />} />
-                <Route
-                  path="venues/:venueSlug"
-                  element={<VenueDetailsPage />}
-                />
                 <Route path="unauthorized" element={<UnauthorizedPage />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
@@ -67,6 +64,7 @@ function App() {
                 >
                   <Route path="my-events" element={<MyEvents />} />
                   <Route path="create-event" element={<CreateEvent />} />
+                  <Route path="event-analytics" element={<EventAnalytics />} />
                 </Route>
 
                 <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>

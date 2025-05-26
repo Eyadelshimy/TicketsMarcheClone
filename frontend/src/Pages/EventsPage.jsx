@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { events } from "../Connections/axios";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/css/events.css";
@@ -35,8 +35,16 @@ const EventCard = ({ title, image, location, date, category, id }) => {
 
 const EventsPage = () => {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   const [isLoading, setIsLoading] = useState(true);
+
+  // State for filters
+  const [filters, setFilters] = useState({
+    search: location.state?.search || "",
+    category: searchParams.get("category") || "",
+    location: "",
+  });
 
   const [allEvents, setAllEvents] = useState([]);
   useEffect(() => {
@@ -46,20 +54,19 @@ const EventsPage = () => {
     });
   }, []);
 
-  // const { eventId } = useParams();
-
-  // State for filters
-  const [filters, setFilters] = useState({
-    search: location.state?.search || "",
-    category: "",
-    location: "",
-  });
-
   // State for filtered events
   const [filteredEvents, setFilteredEvents] = useState(allEvents);
 
   // Get unique categories for filter dropdown
-  const categories = [...new Set(allEvents.map((event) => event.category))];
+  const categories = [
+    "Nightlife",
+    "Concerts",
+    "Art & Theatre",
+    "Comedy",
+    "Festival",
+    "Activities",
+    "Other",
+  ];
 
   // Get unique locations for filter dropdown
   const locations = [...new Set(allEvents.map((event) => event.location))];
@@ -96,7 +103,7 @@ const EventsPage = () => {
     }
 
     setFilteredEvents(results);
-  }, [filters]);
+  }, [filters, allEvents]);
 
   if (isLoading) return <Spinner animation="border" />;
 
@@ -110,72 +117,70 @@ const EventsPage = () => {
       </div>
 
       <div className="filters-container">
-        <div className="filters-container">
-          <div className="filter-item">
-            <input
-              type="text"
-              name="search"
-              placeholder="Search events..."
-              value={filters.search}
-              onChange={handleFilterChange}
-              className="filter-input"
-            />
-          </div>
-
-          <div className="filter-item">
-            <select
-              name="category"
-              value={filters.category}
-              onChange={handleFilterChange}
-              className="filter-select"
-            >
-              <option value="">All Categories</option>
-              {categories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="filter-item">
-            <select
-              name="location"
-              value={filters.location}
-              onChange={handleFilterChange}
-              className="filter-select"
-            >
-              <option value="">All Locations</option>
-              {locations.map((location, index) => (
-                <option key={index} value={location}>
-                  {location}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="filter-item">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search events..."
+            value={filters.search}
+            onChange={handleFilterChange}
+            className="filter-input"
+          />
         </div>
 
-        <div className="events-results">
-          {filteredEvents.length > 0 ? (
-            <div className="events-grid">
-              {filteredEvents.map((event, index) => (
-                <EventCard key={index} {...event} />
-              ))}
-            </div>
-          ) : (
-            <div className="no-events-found">
-              <p>No events found matching your criteria.</p>
-              <button
-                onClick={() =>
-                  setFilters({ search: "", category: "", location: "" })
-                }
-                className="reset-filters-btn"
-              >
-                Reset Filters
-              </button>
-            </div>
-          )}
+        <div className="filter-item">
+          <select
+            name="category"
+            value={filters.category}
+            onChange={handleFilterChange}
+            className="filter-select"
+          >
+            <option value="">All Categories</option>
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <div className="filter-item">
+          <select
+            name="location"
+            value={filters.location}
+            onChange={handleFilterChange}
+            className="filter-select"
+          >
+            <option value="">All Locations</option>
+            {locations.map((location, index) => (
+              <option key={index} value={location}>
+                {location}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="events-results">
+        {filteredEvents.length > 0 ? (
+          <div className="events-grid">
+            {filteredEvents.map((event, index) => (
+              <EventCard key={index} {...event} />
+            ))}
+          </div>
+        ) : (
+          <div className="no-events-found">
+            <p>No events found matching your criteria.</p>
+            <button
+              onClick={() =>
+                setFilters({ search: "", category: "", location: "" })
+              }
+              className="reset-filters-btn"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

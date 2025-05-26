@@ -76,9 +76,14 @@ const MyEvents = () => {
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>My Events</h1>
-        <Link to="/create-event" className="btn btn-primary">
-          <i className="fas fa-plus me-2"></i>Create New Event
-        </Link>
+        <div>
+          <Link to="/event-analytics" className="btn btn-outline-primary me-2">
+            View Analytics
+          </Link>
+          <Link to="/create-event" className="btn btn-primary">
+            Create New Event
+          </Link>
+        </div>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
