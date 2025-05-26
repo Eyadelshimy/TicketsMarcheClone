@@ -56,6 +56,13 @@
     gap: 30px;
 }
 
+.event-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
 .event-card {
     border-radius: 16px;
     overflow: hidden;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/home.css';
 import EventCard from '../Components/EventCard';
@@ -59,6 +59,16 @@ const HotEventCard = ({ title, image, date }) => (
 );
 */
 const HomePage = () => {
+    // Featured event state
+    const [featuredEvent] = useState({
+        title: "Disco Misr Festival",
+        slug: "disco-misr-festival",
+        image: placeholderImage,
+        location: "Zed Park",
+        date: "May 30, 2023",
+        description: "A day-long festival featuring Disco Misr and other top DJs."
+    });
+    
     // Sample data
     const categories = [
         { title: "Nightlife", count: 2, image: placeholderImage },
@@ -95,17 +105,20 @@ const HomePage = () => {
                     <div className="splide__slide">
                         <div className="event_details">
                             <div>
-                               <EventCard/>
+                               <h2>{featuredEvent.title}</h2>
+                               <p>{featuredEvent.description}</p>
+                               <p><strong>Location:</strong> {featuredEvent.location}</p>
+                               <p><strong>Date:</strong> {featuredEvent.date}</p>
                             </div>
                             
                             <div className="button-container">
-                                <button className="btn btn-tm-primary">
+                                <Link to={`/events/${featuredEvent.slug}`} className="btn btn-tm-primary">
                                     <i className="far fa-ticket-alt me-2"></i> Book Now
-                                </button>
-                                <button className="btn btn-tm-link more-info">More Info</button>
+                                </Link>
+                                <Link to={`/events/${featuredEvent.slug}`} className="btn btn-tm-link more-info">More Info</Link>
                             </div>
                         </div>
-                        <img src={placeholderImage} alt="Disco Misr Festival" className="event-image" />
+                        <img src={placeholderImage} alt={featuredEvent.title} className="event-image" />
                     </div>
                 </div>
             </div>
