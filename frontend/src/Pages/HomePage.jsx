@@ -77,6 +77,7 @@ const HomePage = () => {
           image: ev.image,
           location: ev.location,
           date: ev.date,
+          _id: ev._id
         };
 
         hotfEvents.push(hotfEvent);
@@ -167,6 +168,7 @@ const HomePage = () => {
             title={event.title}
             image={event.image}
             date={event.date}
+            _id={event._id}
           />
         ))}
       />

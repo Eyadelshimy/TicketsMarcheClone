@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { events as eventsConnection } from '../Connections/axios';
 import '../assets/css/bookingModal.css';
 
 const BookingModal = ({ event, isOpen, onClose, onBook }) => {
+  const { user } = useAuth();
   const [bookingData, setBookingData] = useState({
-    name: '',
-    email: '',
+    name: user?.name || '',
+    email: user?.email || '',
     phone: '',
     quantity: 1,
     specialRequests: ''
@@ -51,6 +54,8 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
     
     if (bookingData.quantity < 1) {
       newErrors.quantity = 'Quantity must be at least 1';
+    } else if (bookingData.quantity > event.remainingTickets) {
+      newErrors.quantity = `Only ${event.remainingTickets} tickets available`;
     }
     
     setErrors(newErrors);
@@ -70,26 +75,29 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
     setIsLoading(true);
     
     try {
-      // In a real app, you would make an API call here
-      // For now, we'll just simulate it with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Call the onBook callback with booking data
-      onBook({
-        ...bookingData,
-        eventId: event.id,
-        eventTitle: event.title,
+      // Create the booking
+      const response = await eventsConnection.post('/bookings', {
+        eventId: event._id,
+        numberOfTickets: bookingData.quantity,
         totalPrice: calculateTotalPrice(),
-        bookingDate: new Date().toISOString()
+        customerDetails: {
+          name: bookingData.name,
+          email: bookingData.email,
+          phone: bookingData.phone,
+          specialRequests: bookingData.specialRequests
+        }
       });
       
       setIsSuccess(true);
+      onBook(response.data);
+      
+      // Reset form after successful booking
       setTimeout(() => {
         onClose();
         setIsSuccess(false);
         setBookingData({
-          name: '',
-          email: '',
+          name: user?.name || '',
+          email: user?.email || '',
           phone: '',
           quantity: 1,
           specialRequests: ''
@@ -99,20 +107,14 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
       
     } catch (error) {
       console.error('Booking failed:', error);
-      setErrors({ submit: 'Booking failed. Please try again.' });
+      setErrors({ submit: error.response?.data?.message || 'Booking failed. Please try again.' });
     } finally {
       setIsLoading(false);
     }
   };
 
   const calculateTotalPrice = () => {
-    const priceValue = event.price === 'Free' ? 0 : parseFloat(event.price.replace(/[^0-9.]/g, ''));
-    return priceValue * bookingData.quantity;
-  };
-  
-  const formatDate = (dateString) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    return event.ticketPricing * bookingData.quantity;
   };
   
   const handleBack = () => {
@@ -136,8 +138,8 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
             <div className="booking-modal-header">
               <h2>{step === 1 ? 'Book Tickets' : 'Review Booking'}</h2>
               <h3>{event.title}</h3>
-              <p>{event.date} at {event.time}</p>
-              <p>{event.venue}, {event.location}</p>
+              <p>{new Date(event.date).toLocaleString()}</p>
+              <p>{event.location}</p>
               
               {step === 2 && (
                 <div className="booking-steps">
@@ -149,7 +151,7 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
             </div>
             
             {step === 1 ? (
-              <form className="booking-form" onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="booking-form">
                 <div className="form-group">
                   <label htmlFor="name">Full Name</label>
                   <input
@@ -196,6 +198,7 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                     id="quantity"
                     name="quantity"
                     min="1"
+                    max={event.remainingTickets}
                     value={bookingData.quantity}
                     onChange={handleChange}
                     className={errors.quantity ? 'error' : ''}
@@ -218,7 +221,7 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                 <div className="booking-summary">
                   <div className="summary-item">
                     <span>Price per ticket:</span>
-                    <span>{event.price}</span>
+                    <span>${event.ticketPricing}</span>
                   </div>
                   <div className="summary-item">
                     <span>Quantity:</span>
@@ -226,11 +229,7 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                   </div>
                   <div className="summary-item total">
                     <span>Total:</span>
-                    <span>
-                      {event.price === 'Free' 
-                        ? 'Free' 
-                        : `${calculateTotalPrice()} ${event.price.replace(/[0-9.]/g, '').trim()}`}
-                    </span>
+                    <span>${calculateTotalPrice()}</span>
                   </div>
                 </div>
                 
@@ -239,6 +238,7 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                 <button
                   type="submit"
                   className="book-tickets-btn"
+                  style={{ backgroundColor: "#f7c53f", color: "#212121" }}
                 >
                   Continue to Review
                 </button>
@@ -253,11 +253,11 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                   </div>
                   <div className="review-item">
                     <span>Date & Time:</span>
-                    <span>{event.date} at {event.time}</span>
+                    <span>{new Date(event.date).toLocaleString()}</span>
                   </div>
                   <div className="review-item">
                     <span>Venue:</span>
-                    <span>{event.venue}, {event.location}</span>
+                    <span>{event.location}</span>
                   </div>
                 </div>
                 
@@ -287,15 +287,11 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                   <h4>Order Summary</h4>
                   <div className="review-item">
                     <span>Tickets:</span>
-                    <span>{bookingData.quantity} x {event.price}</span>
+                    <span>{bookingData.quantity} x ${event.ticketPricing}</span>
                   </div>
                   <div className="review-item total">
                     <span>Total:</span>
-                    <span>
-                      {event.price === 'Free' 
-                        ? 'Free' 
-                        : `${calculateTotalPrice()} ${event.price.replace(/[0-9.]/g, '').trim()}`}
-                    </span>
+                    <span>${calculateTotalPrice()}</span>
                   </div>
                 </div>
                 
@@ -304,6 +300,7 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                     type="button" 
                     className="back-btn"
                     onClick={handleBack}
+                    style={{ backgroundColor: "#e9ecef", color: "#212121" }}
                   >
                     Back to Details
                   </button>
@@ -312,6 +309,7 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
                     className="book-tickets-btn"
                     disabled={isLoading}
                     onClick={handleSubmit}
+                    style={{ backgroundColor: "#f7c53f", color: "#212121" }}
                   >
                     {isLoading ? 'Processing...' : 'Confirm Booking'}
                   </button>

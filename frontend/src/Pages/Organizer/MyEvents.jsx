@@ -62,115 +62,109 @@ const MyEvents = () => {
     });
   };
 
-  if (loading) {
-    return (
-      <div className="container my-5 text-center">
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>My Events</h1>
-        <div>
-          <Link to="/event-analytics" className="btn btn-outline-primary me-2">
-            View Analytics
-          </Link>
-          <Link to="/create-event" className="btn btn-primary">
-            Create New Event
-          </Link>
-        </div>
+        <Link
+          to="/create-event"
+          className="btn"
+          style={{
+            backgroundColor: "#f7c53f",
+            color: "#212121",
+            fontWeight: "600",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+          }}
+        >
+          <i className="fas fa-plus me-2"></i>Create New Event
+        </Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {!loading && events.length === 0 && (
-        <div className="alert alert-info">
-          <p className="mb-0">You haven't created any events yet.</p>
+      {loading ? (
+        <div className="text-center my-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
-      )}
-
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {events.map((event) => (
-          <div className="col" key={event._id}>
-            <div className="card h-100 shadow-sm">
-              <div
-                className={`card-status-badge badge mb-2 bg-${statusColors[event.status]}`}
-              >
-                {event.status}
-              </div>
-
-              {event.image && (
-                <img
-                  src={event.image}
+      ) : events.length === 0 ? (
+        <div className="alert alert-info">
+          You haven't created any events yet. Start by creating your first event!
+        </div>
+      ) : (
+        <div className="row g-4">
+          {events.map((event) => (
+            <div key={event._id} className="col-md-6 col-lg-4">
+              <div className="card h-100 shadow-sm">
+                <div
                   className="card-img-top"
-                  alt={event.title}
-                  style={{ height: "180px", objectFit: "cover" }}
-                />
-              )}
-
-              <div className="card-body">
-                <h5 className="card-title">{event.title}</h5>
-                <p className="card-text text-muted mb-1">
-                  <small>
-                    <i className="fas fa-map-marker-alt me-1"></i>
-                    {event.location}
-                  </small>
-                </p>
-                <p className="card-text text-muted mb-2">
-                  <small>
-                    <i className="far fa-calendar-alt me-1"></i>
-                    {formatDate(event.date)}
-                  </small>
-                </p>
-                <div className="d-flex justify-content-between align-items-center mt-3">
-                  <span className="badge bg-light text-dark">
-                    Tickets: {event.remainingTickets}/{event.totalTickets}
-                  </span>
-                  <span className="fw-bold">${event.ticketPricing}</span>
+                  style={{
+                    height: "200px",
+                    backgroundImage: `url(${event.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></div>
+                <div
+                  className={`badge bg-${
+                    statusColors[event.status]
+                  } position-absolute top-0 end-0 m-2`}
+                >
+                  {event.status}
                 </div>
-              </div>
-              <div className="card-footer bg-white border-top-0">
-                <div className="d-flex justify-content-between">
-                  <Link
-                    to={`/edit-event/${event._id}`}
-                    className="btn btn-outline-primary btn-sm"
-                    disabled={event.status === "Approved"}
-                  >
-                    <i className="fas fa-edit me-1"></i>Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDeleteEvent(event._id)}
-                    className="btn btn-outline-danger btn-sm"
-                  >
-                    <i className="fas fa-trash-alt me-1"></i>Delete
-                  </button>
-                </div>
-
-                {event.status === "Approved" && (
-                  <Link
-                    to={`/event-dashboard/${event._id}`}
-                    className="btn btn-outline-success btn-sm w-100 mt-2"
-                  >
-                    <i className="fas fa-chart-line me-1"></i>View Dashboard
-                  </Link>
-                )}
-                {event.status === "Declined" && (
-                  <div className="mt-2 small text-danger">
-                    <i className="fas fa-exclamation-circle me-1"></i>
-                    Your event was declined. Please check your email for
-                    details.
+                <div className="card-body">
+                  <h5 className="card-title">{event.title}</h5>
+                  <p className="card-text text-muted mb-1">
+                    <small>
+                      <i className="fas fa-map-marker-alt me-1"></i>
+                      {event.location}
+                    </small>
+                  </p>
+                  <p className="card-text text-muted mb-2">
+                    <small>
+                      <i className="far fa-calendar-alt me-1"></i>
+                      {formatDate(event.date)}
+                    </small>
+                  </p>
+                  <div className="d-flex justify-content-between align-items-center mt-3">
+                    <span className="badge bg-light text-dark">
+                      Tickets: {event.remainingTickets}/{event.totalTickets}
+                    </span>
+                    <span className="fw-bold">${event.ticketPricing}</span>
                   </div>
-                )}
+                </div>
+                <div className="card-footer bg-white border-top-0">
+                  <div className="d-flex justify-content-between">
+                    <Link
+                      to={`/edit-event/${event._id}`}
+                      className="btn"
+                      style={{
+                        backgroundColor: "#f7c53f",
+                        color: "#212121",
+                        fontWeight: "600",
+                        flex: "1",
+                        marginRight: "8px",
+                      }}
+                    >
+                      <i className="fas fa-edit me-1"></i>Edit
+                    </Link>
+                    <button
+                      onClick={() => handleDeleteEvent(event._id)}
+                      className="btn btn-outline-danger"
+                      style={{ flex: "1" }}
+                    >
+                      <i className="fas fa-trash-alt me-1"></i>Delete
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

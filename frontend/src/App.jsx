@@ -23,6 +23,7 @@ import EventAnalytics from "./Pages/Organizer/EventAnalytics";
 // Organizer pages
 import MyEvents from "./Pages/Organizer/MyEvents";
 import CreateEvent from "./Pages/Organizer/CreateEvent";
+import EditEvent from "./Pages/Organizer/EditEvent";
 
 // Admin pages
 import UserManagement from "./Pages/Admin/UserManagement";
@@ -64,6 +65,7 @@ function App() {
                 >
                   <Route path="my-events" element={<MyEvents />} />
                   <Route path="create-event" element={<CreateEvent />} />
+                  <Route path="edit-event/:eventId" element={<EditEvent />} />
                   <Route path="event-analytics" element={<EventAnalytics />} />
                 </Route>
 

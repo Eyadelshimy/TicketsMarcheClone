@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-export default function EventCard({ title, image, location, date }) {
+export default function EventCard({ title, image, location, date, _id }) {
   const options = { year: "numeric", month: "long", day: "numeric" };
 
   return (
     <div className="event-card">
-      <Link to={`/events/`} className="event-link">
+      <Link to={`/events/${_id}`} className="event-link">
         <div className="event-image-container">
           <img
             src={image}

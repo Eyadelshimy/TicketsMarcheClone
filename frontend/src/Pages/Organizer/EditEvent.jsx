@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { events as eventsConnection } from "../../Connections/axios";
 
-const CreateEvent = () => {
+const EditEvent = () => {
+  const { eventId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -33,6 +34,40 @@ const CreateEvent = () => {
     "Other",
   ];
 
+  useEffect(() => {
+    fetchEventDetails();
+  }, [eventId]);
+
+  const fetchEventDetails = async () => {
+    try {
+      const response = await eventsConnection.get(`/${eventId}`);
+      // The response data is an array with one event, so we take the first item
+      const event = response.data[0];
+      
+      if (!event) {
+        throw new Error("Event not found");
+      }
+      
+      setEventData({
+        title: event.title,
+        description: event.description,
+        date: event.date.split('T')[0], // Format date for input
+        location: event.location,
+        category: event.category,
+        image: event.image,
+        ticketPricing: event.ticketPricing,
+        totalTickets: event.totalTickets,
+      });
+      
+      setImagePreview(event.image);
+      setIsLoading(false);
+    } catch (err) {
+      console.error("Error fetching event:", err);
+      setError("Failed to load event details. Please try again later.");
+      setIsLoading(false);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData((prev) => ({
@@ -44,7 +79,6 @@ const CreateEvent = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Preview image
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -53,7 +87,6 @@ const CreateEvent = () => {
           image: reader.result,
         }));
       };
-
       reader.readAsDataURL(file);
     }
   };
@@ -65,110 +98,40 @@ const CreateEvent = () => {
     setSuccess("");
 
     try {
-      // Validate required fields
-      const requiredFields = [
-        "title",
-        "description",
-        "date",
-        "location",
-        "category",
-        "image",
-        "ticketPricing",
-        "totalTickets",
-      ];
-      const missingFields = requiredFields.filter((field) => !eventData[field]);
-
-      if (missingFields.length > 0) {
-        throw new Error(
-          `Please fill all required fields: ${missingFields.join(", ")}`,
-        );
-      }
-
-      // Create form data for file upload
-      const formData = new FormData();
-      Object.keys(eventData).forEach((key) => {
-        formData.append(key, eventData[key]);
-      });
-
-      // Add organizer ID
-      formData.append("organizer", user._id);
-      // Initial status is Pending for admin approval
-      formData.append("status", "Pending");
-      // Remaining tickets equals total tickets initially
-      formData.append("remainingTickets", eventData.totalTickets);
-
-      const response = await eventsConnection.post("/", formData);
-
+      const response = await eventsConnection.put(`/${eventId}`, eventData);
+      
       if (response.data.success) {
-        setSuccess(
-          "Event created successfully! It will be reviewed by an admin.",
-        );
+        setSuccess("Event updated successfully!");
+        setTimeout(() => {
+          navigate("/my-events");
+        }, 2000);
       }
-
-      setTimeout(() => {
-        navigate("/my-events");
-      }, 2000);
     } catch (err) {
-      setError(err.message);
-      console.error("Error creating event:", err);
+      console.error("Error updating event:", err);
+      setError(err.response?.data?.message || "Failed to update event. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="container my-5 text-center">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Create New Event</h1>
-        <Link 
-          to="/my-events" 
-          className="btn"
-          style={{
-            backgroundColor: "#f7c53f",
-            color: "#212121",
-            fontWeight: "600",
-            padding: "10px 20px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          }}
-        >
-          <i className="fas fa-arrow-left me-2"></i>Back to My Events
-        </Link>
+        <h1>Edit Event</h1>
       </div>
 
-      {error && (
-        <div 
-          className="alert" 
-          role="alert"
-          style={{
-            backgroundColor: "#fff3cd",
-            color: "#856404",
-            border: "1px solid #f7c53f",
-            borderRadius: "8px",
-            padding: "15px",
-            marginBottom: "20px"
-          }}
-        >
-          {error}
-        </div>
-      )}
-
-      {success && (
-        <div 
-          className="alert" 
-          role="alert"
-          style={{
-            backgroundColor: "#f7c53f",
-            color: "#212121",
-            borderRadius: "8px",
-            padding: "15px",
-            marginBottom: "20px",
-            fontWeight: "600"
-          }}
-        >
-          {success}
-        </div>
-      )}
+      {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
 
       <div className="card shadow-sm">
         <div className="card-body">
@@ -222,7 +185,7 @@ const CreateEvent = () => {
               <div className="col-md-6">
                 <label className="form-label">Date and Time *</label>
                 <input
-                  type="datetime-local"
+                  type="date"
                   className="form-control"
                   name="date"
                   value={eventData.date}
@@ -235,7 +198,7 @@ const CreateEvent = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter event location"
+                  placeholder="Enter location"
                   name="location"
                   value={eventData.location}
                   onChange={handleChange}
@@ -246,93 +209,82 @@ const CreateEvent = () => {
 
             <div className="row mb-3">
               <div className="col-md-6">
-                <label className="form-label">Ticket Price ($) *</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Enter ticket price"
-                  name="ticketPricing"
-                  value={eventData.ticketPricing}
-                  onChange={handleChange}
-                  min="0"
-                  step="0.01"
-                  required
-                />
+                <label className="form-label">Ticket Price *</label>
+                <div className="input-group">
+                  <span className="input-group-text">$</span>
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="0.00"
+                    name="ticketPricing"
+                    value={eventData.ticketPricing}
+                    onChange={handleChange}
+                    required
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
               </div>
               <div className="col-md-6">
-                <label className="form-label">Total Tickets Available *</label>
+                <label className="form-label">Total Tickets *</label>
                 <input
                   type="number"
                   className="form-control"
-                  placeholder="Enter total number of tickets"
+                  placeholder="Enter total tickets"
                   name="totalTickets"
                   value={eventData.totalTickets}
                   onChange={handleChange}
-                  min="1"
                   required
+                  min="1"
                 />
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="form-label">Event Image *</label>
+              <label className="form-label">Event Image</label>
               <input
                 type="file"
                 className="form-control"
-                accept="image/*"
                 onChange={handleImageChange}
-                required
+                accept="image/*"
               />
               {imagePreview && (
-                <div className="mt-2">
-                  <img
-                    src={imagePreview}
-                    alt="Event preview"
-                    className="img-thumbnail"
-                    style={{ maxHeight: "200px" }}
-                  />
-                </div>
+                <img
+                  src={imagePreview}
+                  alt="Event preview"
+                  className="mt-2"
+                  style={{ maxWidth: "200px", borderRadius: "8px" }}
+                />
               )}
             </div>
 
-            <div className="alert" style={{
-              backgroundColor: "#fff3cd",
-              color: "#856404",
-              border: "1px solid #f7c53f",
-              borderRadius: "8px",
-              padding: "15px",
-              marginBottom: "20px"
-            }}>
-              <small>
-                <i className="fa fa-info-circle me-1"></i>
-                Your event will be reviewed by admins before being published on
-                the platform.
-              </small>
-            </div>
-
-            <div className="text-end">
+            <div className="d-flex gap-2">
+              <button
+                type="button"
+                onClick={() => navigate("/my-events")}
+                className="btn btn-outline-secondary"
+                style={{ flex: 1 }}
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
                 className="btn"
                 style={{
+                  flex: 1,
                   backgroundColor: "#f7c53f",
                   color: "#212121",
                   fontWeight: "600",
-                  padding: "10px 30px",
-                  borderRadius: "8px",
-                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                 }}
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <>
                     <span className="spinner-border spinner-border-sm me-2" />
-                    Creating...
+                    Updating...
                   </>
                 ) : (
-                  <>
-                    <i className="fas fa-plus me-2"></i>Create Event
-                  </>
+                  "Update Event"
                 )}
               </button>
             </div>
@@ -343,4 +295,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default EditEvent; 
