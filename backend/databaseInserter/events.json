@@ -2,6 +2,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/d8df5d74bdc55b9794cd6789722d3bc1.jpg",
         "event-name": "Layaly Dalida",
+        "event-description": "Enjoy a beautiful night with faimly and friends listening to dalida",
         "event-date": "May 22 to May 24 | 8:00pm",
         "event-category": "Nightlife",
         "event-venue": "Rawabet Art Space",
@@ -10,6 +11,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/2d4906f1dbf1a2bd7d9ec18469345791.png",
         "event-name": "SECRET DEBATE CLUB",
+        "event-description": "Secret Debate Club is an exclusive, underground-style forum where participants engage in thought-provoking, unscripted debates on bold or controversial topics. It fosters intellectual challenge, quick thinking, and diverse perspectives in a confidential, no-judgment space.",
         "event-date": "May 23 | 08:00 PM",
         "event-category": "Comedy",
         "event-venue": "El Rihany Theater",
@@ -18,6 +20,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/14c3d7795f6012047f5cd8e18275ba9d.jpg",
         "event-name": "Disco Misr Festival - Album Launch",
+        "event-description": "Disco Masr Album Launch is a high-energy event celebrating the release of the band’s latest fusion of retro Arabic hits with modern electronic beats. The night promises infectious grooves, vibrant visuals, and an unforgettable dancefloor experience.",
         "event-date": "May 30 | 03:00 PM",
         "event-category": "Nightlife",
         "event-venue": "Zed Park, Elsheikh Zayed",
@@ -26,6 +29,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/435b6c4d8ab633e75b1b07bb05af24cc.png",
         "event-name": "Adam Port",
+        "event-description": "Adam Port Live is an electrifying DJ event featuring the renowned German artist Adam Port, celebrated for his deep house and Afro-inspired techno beats. His performances are known for their dynamic energy and immersive soundscapes, captivating audiences worldwide.",
         "event-date": "May 30 | 9:00 PM",
         "event-category": "Concert",
         "event-venue": "The Green River-New Capital",
@@ -34,6 +38,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/50e15091e0b72bd57f2e5ed492a48606.jpg",
         "event-name": "The Color Run",
+        "event-description": "The Color Run is a vibrant, untimed 5K event where participants are doused in colorful powder at each kilometer, creating a fun, festival-like atmosphere. Known as “The Happiest 5K on the Planet,” it celebrates health, happiness, and self-expression.",
         "event-date": "May 31 | 08:00 AM",
         "event-category": "Activities",
         "event-venue": "O West",
@@ -42,6 +47,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/cbfc2f02da67b7fd6f425ef287c304ee.jpg",
         "event-name": "ZED PARK",
+        "event-description": "ZED Park is a vibrant entertainment and lifestyle destination in Sheikh Zayed City, Cairo, offering green spaces, amusement rides, restaurants, and year-round events. It's a family-friendly hub blending leisure, nature, and culture in a modern urban setting.",
         "event-date": "",
         "event-category": "Other",
         "event-venue": "Zed Park, Elsheikh Zayed",
@@ -50,6 +56,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/e24f7346bffc0196d00e75ed35b73692.png",
         "event-name": "Lumen",
+        "event-description": "Lumen is a cutting-edge event/exhibition (or project) focused on exploring light and its artistic, technological, or scientific applications. It creates immersive experiences that blend innovation with creativity to inspire and captivate audiences.",
         "event-date": "Jun 07 | 09:00 PM",
         "event-category": "Festival",
         "event-venue": "Mesca Beach, Somabay",
@@ -58,6 +65,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/1bd3b6a6cec53bd2f28f01a39f5733ab.jpg",
         "event-name": "“Tetrat W Zekrayat” Ali Elhaggar - Second Edition",
+        "event-description": "A nostalgic musical evening featuring the legendary Egyptian singer Ali Elhaggar. Held on May 22, 2025, at Theatro Arkan in Sheikh Zayed.",
         "event-date": "May 22 | 09:00 PM",
         "event-category": "Art & Theatre",
         "event-venue": "Theatro Arkan",
@@ -66,6 +74,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/f4c7b7501801d03a66fd9ee90b1c6c9c.jpg",
         "event-name": "Saad El Oud Live At Boom Room",
+        "event-description": "Saad El Oud Live at Boom Room is an enchanting musical evening where Saad El Oud, accompanied by his band, delivers a captivating performance of oriental and folk Egyptian tunes. Held at Boom Room in Open Air Mall",
         "event-date": "May 25 | 09:00 PM",
         "event-category": "Festival",
         "event-venue": "Boom Room, Open Air Mall, Madinaty",
@@ -74,6 +83,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/294ead80ff92084263ba20a69d26b45c.png",
         "event-name": "Ignite BSE",
+        "event-description": "Ignite BSE is a dynamic, student-led event at The British School of Egypt, featuring rapid-fire talks, live performances, and interactive sponsor booths. Scheduled for May 30, 2025, at 4:00 PM, it offers a platform for diverse voices to inspire and engage the community",
         "event-date": "May 30 | 04:00 PM",
         "event-category": "Activities",
         "event-venue": "The British School of Egypt Theatre",
@@ -82,6 +92,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/bf3faf0960ce1cd6c2393a26c663f6ad.png",
         "event-name": "Bint Shoubra",
+        "event-description": "Bint Shoubra is a tribute concert celebrating the legendary Egyptian-French singer Dalida, featuring Mirva Kadi's powerful performance and a special appearance by Haidy Moussa. ",
         "event-date": "30 and 31 May | 9:00 PM",
         "event-category": "Art & Theatre",
         "event-venue": "The Theater",
@@ -90,6 +101,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/bb849c146dfb29cf865b2c23b7014667.jpg",
         "event-name": "Sound Up B-62 By “Nagham Saleh, Abraxasophia And Sine”",
+        "event-description": "Sound Up B-62 is an avant-garde music event taking place on May 31, 2025, at 7:00 PM at Jesuit Cairo in Downtown Cairo.",
         "event-date": "May 31 | 07:00 PM",
         "event-category": "Festival",
         "event-venue": "Jesuit Cairo",
@@ -98,6 +110,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/8245f077b8f2220b0350acd511e387d8.jpg",
         "event-name": "What Have The Years Done To Us",
+        "event-description": "What Have the Years Done to Us is a reflective artistic work exploring the impact of time on relationships, memories, and personal growth. It invites audiences to ponder change, loss, and resilience through a poignant narrative or performance.",
         "event-date": "2 to 4 June | 8:00 PM",
         "event-category": "Activities",
         "event-venue": "Rawabet Art Space",
@@ -106,6 +119,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/753cca9ef0176c74c665f8307006b637.jpg",
         "event-name": "Jeff Dunham - Artificial Intelligence",
+        "event-description": " Artificial Intelligence is the acclaimed comedian's 2025 stand-up tour, blending his signature ventriloquism with a futuristic twist. Fans can expect appearances from classic characters like Peanut, Walter, Achmed, Bubba J, and José Jalapeño,",
         "event-date": "Jun 26 | 09:00 PM",
         "event-category": "Other",
         "event-venue": "Drama Hall",
@@ -114,6 +128,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/2fb73b6fc55fd51b9fcc4b4095ad473a.jpg",
         "event-name": "Red Bull Jukebox",
+        "event-description": "Red Bull Jukebox is an innovative live music experience where fans actively shape the concert by voting on song selections, performance styles, and surprise moments. This interactive format transforms the traditional concert into a dynamic collaboration between artists and their audience. ",
         "event-date": "May 23 | 04:00 PM",
         "event-category": "Nightlife",
         "event-venue": "Taj City",
@@ -122,6 +137,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/2147f69d7b087a3974fbbe154219138d.jpg",
         "event-name": "Michael Buble Concert",
+        "event-description": "Michael Bublé is set to perform live in Cairo for the first time on Monday, May 26, 2025, at the Open Air Theater - City of Arts and Culture in the New Administrative Capital. ",
         "event-date": "May 26 | 9:00 PM",
         "event-category": "Concerts",
         "event-venue": "Open Air Theater - City Of Arts and Culture",
@@ -130,6 +146,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/df15031b6adf1726739d868ce9f0eacb.jpg",
         "event-name": "3 In 1 Volume 2",
+        "event-description": "a theatrical event featuring three distinct short plays, each offering a unique perspective on life. The first play presents a mysterious investigation with minimal dialogue, the second explores an artist's struggle with creative obstacles, and the third delves into a young man's journey through therapy to confront his weaknesses.",
         "event-date": "May 30 & June 1 | 8:00 PM",
         "event-category": "Comedy",
         "event-venue": "Rawabet Art Space",
@@ -138,6 +155,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/41b7b12c4712eb5f157f6b635c157241.jpg",
         "event-name": "Boom Room Turns 1 Featuring Sharmoofers And Surprise Guests",
+        "event-description": "Boom Room Turns 1 is a high-energy celebration marking the first anniversary of Boom Room in Madinaty. Headlined by the popular Egyptian band Sharmoofers, the event promises an unforgettable night filled with live music, surprise guest performances, and unlimited food and games. The festivities will take place on Friday, May 30, 2025, at 9:00 PM at Boom Room, Open Air Mall, Madinaty.",
         "event-date": "May 30 | 09:00 PM",
         "event-category": "Nightlife",
         "event-venue": "Boom Room, Open Air Mall, Madinaty",
@@ -146,6 +164,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/bdd18a9bcddd90f12fc2ac54e388e862.png",
         "event-name": "AUC Alumni Folklore Group",
+        "event-description": "The AUC Alumni Folklore Group, founded in 2013 by Pinky Selim, is a vibrant troupe dedicated to preserving and promoting Egyptian folklore dance. Originally composed of American University in Cairo (AUC) graduates, the group has expanded to include dancers from various backgrounds, all united by a passion to Revive the Art of Egyptian heritage",
         "event-date": "May 31 | 8:00 PM",
         "event-category": "Art & Theatre",
         "event-venue": "Theatro Arkan",
@@ -154,6 +173,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/d4c4e9dc0f3851840e52bce4c0556ed0.png",
         "event-name": "Makadi Heights Music Festival: Cairokee X Marwan Moussa X Afroto",
+        "event-description": "The Makadi Heights Music Festival returns for its second edition on June 7–8, 2025, at The Haus in Makadi Heights, Hurghada. The festival features two electrifying nights",
         "event-date": "June 7 & 8 | 7:30 PM",
         "event-category": "Concerts",
         "event-venue": "The Haus, Makadi Heights",
@@ -162,6 +182,7 @@
     {
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/58fc47b71c11947a7078145673749817.png",
         "event-name": "Amr Diab X Monolink X WhoMadeWho",
+        "event-description": "Amr Diab X Monolink X WhoMadeWho is a groundbreaking musical event set for July 4, 2025, at Sol Beach, Marassi, on Egypt’s North Coast. This one-night-only concert brings together Egyptian pop icon Amr Diab, renowned for his captivating performances, alongside the melodic techno of Monolink and the innovative sounds of WhoMadeWho.",
         "event-date": "Jul 04 | 09:00 PM",
         "event-category": "Concerts",
         "event-venue": "Sol Beach",

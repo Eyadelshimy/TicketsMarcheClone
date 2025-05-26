@@ -9,7 +9,7 @@ const db = connect("mongodb://localhost:27017/TicketsMarcheDB");
 const organizerId = ObjectId("67fc8f1703887a7a1fc1f460");
 
 // Load JSON data
-const raw = fs.readFileSync("events.json");
+const raw = fs.readFileSync("./backend/databaseInserter/events.json");
 const events = JSON.parse(raw);
 
 // Helper functions
@@ -27,19 +27,33 @@ function parsePrice(priceStr) {
   return match ? parseInt(match[1], 10) : 0;
 }
 
+function getRandomMultipleOf50(min = 300, max = 1000) {
+  const minMultiplier = Math.ceil(min / 50);
+  const maxMultiplier = Math.floor(max / 50);
+  const randomMultiplier = Math.floor(Math.random() * (maxMultiplier - minMultiplier + 1)) + minMultiplier;
+  return randomMultiplier * 50;
+}
+
+
+
+function randomRemain(max){
+  return Math.floor(Math.random() * max) + 1;
+}
+
 // Insert events
 events.forEach((e) => {
+  const randomNumber = getRandomMultipleOf50();
   const eventDoc = {
     eventID: UUID(),
     title: e["event-name"],
-    description: "Placeholder Description",
+    description: e["event-description"],
     date: parseDate(e["event-date"]),
     location: e["event-venue"],
-    category: "Placeholder Category",
+    category: e["event-category"],
     image: e.category_img,
     ticketPricing: parsePrice(e["event-price"]),
-    totalTickets: 100,
-    remainingTickets: 100,
+    totalTickets: randomNumber, //random number maben 300=< x < 1000 and must be a multiple of 50
+    remainingTickets: randomRemain(randomNumber), // random number maben 1 =< x =< tital tickets
     status: "Approved",
     organizer: organizerId,
     createdAt: new Date(),
