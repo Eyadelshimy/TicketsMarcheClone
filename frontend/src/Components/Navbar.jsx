@@ -77,7 +77,7 @@ export default function Navbar() {
     e.preventDefault();
     if (searchTerm.trim()) {
       navigate("/events", {
-        state: { search: searchTerm.trim().toLowerCase() },
+        state: { search: searchTerm.trim() },
       });
     }
   };

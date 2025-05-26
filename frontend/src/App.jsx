@@ -41,8 +41,11 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route index element={<HomePage />} />
                 <Route path="events" element={<EventsPage />} />
-                <Route path="events/:eventSlug" element={<EventDetailsPage />} />
-                <Route path="venues/:venueSlug" element={<VenueDetailsPage />} />
+                <Route path="events/:eventId" element={<EventDetailsPage />} />
+                <Route
+                  path="venues/:venueSlug"
+                  element={<VenueDetailsPage />}
+                />
                 <Route path="unauthorized" element={<UnauthorizedPage />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
@@ -82,4 +85,3 @@ function App() {
 }
 
 export default App;
-

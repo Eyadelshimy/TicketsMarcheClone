@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FaTicketAlt } from "react-icons/fa";
 import { events } from "../Connections/axios";
 import { Link } from "react-router-dom";
+
+import HorizontalScroller from "../Components/HorizontalScrollWrapper";
 import EventCard from "../Components/EventCard";
 import CategoryCard from "../Components/CategoryCard";
 import HotEventCard from "../Components/HotEventCard";
@@ -39,28 +41,26 @@ const HomePage = () => {
         (a, b) => a.ticketPricing - b.ticketPricing,
       );
 
-      console.log(response.data.data);
-
       setFeaturedEvent(priceSortedEvents[0]);
 
+      let categoriesF = [];
       let cI = 0;
       categories.forEach((categoryDesc) => {
         let count = 0;
-        const categoriesMinusCurrent = categories.filter(
-          (_, idx) => idx !== cI,
-        );
-
         response.data.data.forEach((event) => {
           if (event.category === categoryDesc.title) count++;
         });
 
         let modCategoryDesc = categories[cI];
         modCategoryDesc.count = count;
-        setCategories([...categoriesMinusCurrent, categoryDesc]);
+
+        categoriesF.push(modCategoryDesc);
 
         count = 0;
         cI++;
       });
+
+      setCategories(categoriesF);
 
       var hotdEvents = response.data.data.sort(
         (a, b) =>
@@ -73,14 +73,16 @@ const HomePage = () => {
       let hotfEvents = [];
       hotdEvents.forEach((ev) => {
         let hotfEvent = {
-          title: "",
-          image: "",
-          location: "",
-          date: "",
+          title: ev.title,
+          image: ev.image,
+          location: ev.location,
+          date: ev.date,
         };
 
-        Object.keys(hotfEvent).forEach((key) => (hotfEvent[key] = ev[key]));
+        hotfEvents.push(hotfEvent);
       });
+
+      hotfEvents = hotfEvents.slice(0, 7);
 
       setHotEvents(hotfEvents);
 
@@ -152,81 +154,35 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Categories Section */}
-      <div className="content-wrapper">
-        <section className="categories-section home-section-mt">
-          <div className="section-header d-flex justify-content-between align-items-center mb-4">
-            <h2>Explore Top Categories For Fun Things To Do</h2>
-            <div className="carousel-navigation">
-              <button className="carousel-prev" aria-label="Previous">
-                <i className="fas fa-arrow-left"></i>
-              </button>
-              <button className="carousel-next" aria-label="Next">
-                <i className="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
+      <HorizontalScroller
+        title={"Explore Top Categories For Fun Things To Do"}
+        items={categories.map((category, index) => (
+          <CategoryCard key={index} {...category} />
+        ))}
+      />
+      <HorizontalScroller
+        title={"Hot Events"}
+        items={hotEvents.map((event, index) => (
+          <HotEventCard
+            key={index}
+            title={event.title}
+            image={event.image}
+            date={event.date}
+          />
+        ))}
+      />
 
-          <div className="category-carousel">
-            <div className="categories-grid">
-              {categories.map((category, index) => (
-                <CategoryCard key={index} {...category} />
-              ))}
-            </div>
-          </div>
-        </section>
+      <HorizontalScroller
+        title={"Upcoming Events"}
+        items={upcomingEvents.map((event, index) => (
+          <EventCard key={index} {...event} />
+        ))}
+      />
 
-        {/* Hot Events Section - Now with image-only design */}
-        <section className="hot-events-section home-section-mt">
-          <div className="section-header d-flex justify-content-between align-items-center mb-4">
-            <h2>Hot Events</h2>
-            <div className="carousel-navigation">
-              <button className="carousel-prev" aria-label="Previous">
-                <i className="fas fa-arrow-left"></i>
-              </button>
-              <button className="carousel-next" aria-label="Next">
-                <i className="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <div className="events-carousel">
-            <div className="events-grid">
-              {hotEvents.map((event, index) => (
-                <HotEventCard key={index} {...event} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Upcoming Events Section */}
-        <section className="upcoming-events-section home-section-mt home-section-mb">
-          <div className="section-header d-flex justify-content-between align-items-center mb-4">
-            <h2>Upcoming Events</h2>
-            <div className="carousel-navigation">
-              <button className="carousel-prev" aria-label="Previous">
-                <i className="fas fa-arrow-left"></i>
-              </button>
-              <button className="carousel-next" aria-label="Next">
-                <i className="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <div className="events-carousel">
-            <div className="events-grid">
-              {upcomingEvents.map((event, index) => (
-                <EventCard key={index} {...event} />
-              ))}
-            </div>
-          </div>
-
-          <div className="view-all-events">
-            <Link to="/events" className="btn all-events-btn">
-              Show All Events <i className="fas fa-arrow-right"></i>
-            </Link>
-          </div>
-        </section>
+      <div className="view-all-events mx-8">
+        <Link to="/events" className="btn all-events-btn">
+          Show All Events <i className="fas fa-arrow-right"></i>
+        </Link>
       </div>
     </div>
   );

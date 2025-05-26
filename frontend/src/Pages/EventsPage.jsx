@@ -7,15 +7,12 @@ import "../assets/css/events.css";
 // Placeholder image URL - replace with actual images later
 const placeholderImage = "https://placehold.co/600x400?text=Event+Image";
 
-const EventCard = ({ title, image, location, date, category }) => {
-  // Generate slug from title
-  const slug = title.toLowerCase().replace(/\s+/g, "-");
-
+const EventCard = ({ title, image, location, date, category, id }) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
 
   return (
     <div className="event-card">
-      <Link to={`/events/${slug}`} className="event-link">
+      <Link to={`/events/${id}`} className="event-link">
         <div className="event-image-container">
           <img
             src={image || placeholderImage}
@@ -49,6 +46,8 @@ const EventsPage = () => {
     });
   }, []);
 
+  // const { eventId } = useParams();
+
   // State for filters
   const [filters, setFilters] = useState({
     search: location.state?.search || "",
@@ -73,17 +72,6 @@ const EventsPage = () => {
       [name]: value,
     }));
   };
-
-  // // Effect to handle URL query parameters when the page loads
-  // useEffect(() => {
-  //   const categoryParam = searchParams.get("category");
-  //   if (categoryParam) {
-  //     setFilters((prev) => ({
-  //       ...prev,
-  //       category: categoryParam,
-  //     }));
-  //   }
-  // }, [searchParams]);
 
   // Filter events based on filters
   useEffect(() => {
