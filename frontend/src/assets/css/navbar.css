@@ -1,3 +1,75 @@
 .user-dropdown.dropdown-toggle::after {
   display: none !important;
 }
+
+/* Profile Icon Styles */
+.profile-icon-container {
+  margin-left: 20px;
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.profile-icon-container:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.profile-icon {
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.profile-icon-container:hover .profile-icon {
+  color: #f7c53f;
+  transform: scale(1.05);
+}
+
+/* General Navbar Styles */
+.navbar.bg-light {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Transparent Search Bar Styles */
+.navbar-search-container {
+  background: transparent;
+  border-radius: 30px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: none;
+}
+
+.navbar-search-container:hover, 
+.navbar-search-container:focus-within {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-search-icon {
+  color: #666;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.navbar-search-input {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #333;
+  font-size: 14px;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.navbar-search-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+}
+
+.navbar-search-input:focus {
+  outline: none;
+}
