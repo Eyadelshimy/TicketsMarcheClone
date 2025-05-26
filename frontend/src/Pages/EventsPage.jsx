@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { events } from "../Connections/axios";
+import Spinner from "react-bootstrap/Spinner";
 import "../assets/css/events.css";
 
 // Placeholder image URL - replace with actual images later
@@ -29,71 +31,26 @@ const EventCard = ({ title, image, location, date, category }) => (
 );
 
 const EventsPage = () => {
-  // Sample data for events
-  const allEvents = [
-    {
-      title: "Stand Up Comedy",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "May 28, 2023",
-      category: "Comedy",
-    },
-    {
-      title: "Adam Port Live",
-      image: placeholderImage,
-      location: "New Capital",
-      date: "May 30, 2023",
-      category: "Nightlife",
-    },
-    {
-      title: "Diana Karazon",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 3, 2023",
-      category: "Concerts",
-    },
-    {
-      title: "Jeff Dunham",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 10, 2023",
-      category: "Comedy",
-    },
-    {
-      title: "Empower Her Art Forum",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 15, 2023",
-      category: "Festival",
-    },
-    {
-      title: "Layaly Dalida",
-      image: placeholderImage,
-      location: "Alexandria",
-      date: "June 18, 2023",
-      category: "Concerts",
-    },
-    {
-      title: "Tetrat W Zekrayat",
-      image: placeholderImage,
-      location: "Cairo",
-      date: "June 25, 2023",
-      category: "Concerts",
-    },
-    {
-      title: "Disco Misr Festival",
-      image: placeholderImage,
-      location: "Zed Park",
-      date: "May 30, 2023",
-      category: "Festival",
-    },
-  ];
-
   const location = useLocation();
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [allEvents, setAllEvents] = useState([]);
+  useEffect(() => {
+    events.get("/").then((response) => {
+      if (response.data.success == true) setIsLoading(false);
+      setAllEvents(response.data.data);
+      console.log(allEvents);
+    });
+  });
+
+  let search = "";
+
+  if (location.state?.search !== undefined) search = location.state.search;
 
   // State for filters
   const [filters, setFilters] = useState({
-    search: location.state?.search || "",
+    search: "",
     category: "",
     location: "",
   });
@@ -141,82 +98,85 @@ const EventsPage = () => {
     setFilteredEvents(results);
   }, [filters]);
 
+  if (isLoading) return <Spinner animation="border" />;
+
   return (
-    <div className="events-page-container">
-      <div className="events-header">
-        <h1>All Events</h1>
-        <p>Find the best events in your area</p>
-      </div>
-
-      <div className="filters-container">
-        <div className="filter-item">
-          <input
-            type="text"
-            name="search"
-            placeholder="Search events..."
-            value={filters.search}
-            onChange={handleFilterChange}
-            className="filter-input"
-          />
+    <div>
+      <div className="events-page-container">
+        <div className="events-header">
+          <h1>All Events</h1>
+          <p>Find the best events in your area</p>
         </div>
 
-        <div className="filter-item">
-          <select
-            name="category"
-            value={filters.category}
-            onChange={handleFilterChange}
-            className="filter-select"
-          >
-            <option value="">All Categories</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="filter-item">
-          <select
-            name="location"
-            value={filters.location}
-            onChange={handleFilterChange}
-            className="filter-select"
-          >
-            <option value="">All Locations</option>
-            {locations.map((location, index) => (
-              <option key={index} value={location}>
-                {location}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="events-results">
-        {filteredEvents.length > 0 ? (
-          <div className="events-grid">
-            {filteredEvents.map((event, index) => (
-              <EventCard key={index} {...event} />
-            ))}
+        <div className="filters-container">
+          <div className="filter-item">
+            <input
+              type="text"
+              name="search"
+              placeholder="Search events..."
+              value={filters.search}
+              onChange={handleFilterChange}
+              className="filter-input"
+            />
           </div>
-        ) : (
-          <div className="no-events-found">
-            <p>No events found matching your criteria.</p>
-            <button
-              onClick={() =>
-                setFilters({ search: "", category: "", location: "" })
-              }
-              className="reset-filters-btn"
+
+          <div className="filter-item">
+            <select
+              name="category"
+              value={filters.category}
+              onChange={handleFilterChange}
+              className="filter-select"
             >
-              Reset Filters
-            </button>
+              <option value="">All Categories</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
           </div>
-        )}
+
+          <div className="filter-item">
+            <select
+              name="location"
+              value={filters.location}
+              onChange={handleFilterChange}
+              className="filter-select"
+            >
+              <option value="">All Locations</option>
+              {locations.map((location, index) => (
+                <option key={index} value={location}>
+                  {location}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="events-results">
+          {filteredEvents.length > 0 ? (
+            <div className="events-grid">
+              {filteredEvents.map((event, index) => (
+                <EventCard key={index} {...event} />
+              ))}
+            </div>
+          ) : (
+            <div className="no-events-found">
+              <p>No events found matching your criteria.</p>
+              <button
+                onClick={() =>
+                  setFilters({ search: "", category: "", location: "" })
+                }
+                className="reset-filters-btn"
+              >
+                Reset Filters
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default EventsPage;
-

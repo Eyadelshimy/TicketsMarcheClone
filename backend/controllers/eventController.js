@@ -111,7 +111,7 @@ module.exports = {
 
   getApprovedEvents: async (req, res) => {
     try {
-      let approvedEvents = await Event.findOne({ status: "Approved" });
+      let approvedEvents = await Event.find({ status: "Approved" });
       res.status(200).json({ success: true, data: approvedEvents });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
