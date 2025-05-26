@@ -1,40 +1,52 @@
-const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid");
+// Run this in terminal with: mongosh insertEvents.mjs
 
-const eventSchema = new mongoose.Schema(
-  {
-    eventID: { type: String, unique: true },
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    date: { type: Date, required: true },
-    location: { type: String, required: true },
-    category: { type: String, required: true },
-    image: { type: String, required: true },
-    ticketPricing: { type: Number, required: true },
-    totalTickets: { type: Number, required: true },
-    remainingTickets: { type: Number, required: true },
-    status: {
-      type: String,
-      enum: ["Approved", "Pending", "Declined"],
-      required: true,
-    },
-    organizer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-    strict: "throw",
-  },
-);
+const fs = require("fs");
 
-eventSchema.pre("save", function (next) {
-  if (!this.eventID) {
-    this.eventID = uuidv4();
-  }
-  next();
+// Connect to your DB
+const db = connect("mongodb://localhost:27017/TicketsMarcheDB");
+
+// Replace with actual ObjectId of a valid organizer
+const organizerId = ObjectId("67fc8f1703887a7a1fc1f460");
+
+// Load JSON data
+const raw = fs.readFileSync("events.json");
+const events = JSON.parse(raw);
+
+// Helper functions
+function parseDate(dateStr) {
+    const match = dateStr.match(/([A-Za-z]+ \d{1,2})/);
+    if (match) {
+        return new Date(`${match[1]}, ${new Date().getFullYear()} 20:00`);
+    }
+    return new Date();
+}
+
+function parsePrice(priceStr) {
+    if (!priceStr) return 0;
+    const match = priceStr.match(/EGP\s*(\d+)/);
+    return match ? parseInt(match[1], 10) : 0;
+}
+
+// Insert events
+events.forEach((e) => {
+    const eventDoc = {
+        eventID: UUID(),
+        title: e["event-name"],
+        description: "Placeholder Description",
+        date: parseDate(e["event-date"]),
+        location: e["event-venue"],
+        category: "Placeholder Category",
+        image: e.category_img,
+        ticketPricing: parsePrice(e["event-price"]),
+        totalTickets: 100,
+        remainingTickets: 100,
+        status: "Approved",
+        organizer: organizerId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    };
+
+    db.events.insertOne(eventDoc);
 });
 
-module.exports = mongoose.model("Event", eventSchema);
+print("? Events inserted successfully.");
