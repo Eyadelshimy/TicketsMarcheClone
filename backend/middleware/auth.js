@@ -7,32 +7,41 @@ exports.protect = async (req, res, next) => {
 
   if (req.cookies["token"]) {
     token = req.cookies["token"];
-  } else if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+  } else if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
     // Allow token from Authorization header with Bearer scheme
-    token = req.headers.authorization.split(' ')[1];
+    token = req.headers.authorization.split(" ")[1];
   }
 
   if (!token) {
     return res
-        .status(401)
-        .json({ success: false, message: "Authentication required" });
+      .status(401)
+      .json({ success: false, message: "Authentication required" });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "your_super_secure_jwt_secret_key_here");
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET || "your_super_secure_jwt_secret_key_here",
+    );
 
     const user = await User.findOne({ userID: decoded.userID });
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     // Add the user to the request object
     req.user = user;
     next();
   } catch (error) {
-    console.error("Auth middleware error:", error);
-    return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid or expired token" });
   }
 };
 
@@ -42,7 +51,7 @@ exports.roleProtect = (roles) => {
     if (!req.user) {
       return res.status(500).json({
         success: false,
-        message: "Server error: User authentication required before role check"
+        message: "Server error: User authentication required before role check",
       });
     }
 
@@ -52,16 +61,20 @@ exports.roleProtect = (roles) => {
     }
 
     // Check if user role is included in the allowed roles (case insensitive)
-    const userRole = (req.user.role || '').toLowerCase();
-    const hasRequiredRole = roles.some((role) => role.toLowerCase() === userRole);
+    const userRole = (req.user.role || "").toLowerCase();
+    const hasRequiredRole = roles.some(
+      (role) => role.toLowerCase() === userRole,
+    );
 
     if (hasRequiredRole) {
       return next();
     } else {
-      console.log(`Access denied for user with role ${req.user.role}, required roles: ${roles.join(', ')}`);
+      console.log(
+        `Access denied for user with role ${req.user.role}, required roles: ${roles.join(", ")}`,
+      );
       return res.status(403).json({
         success: false,
-        message: "Insufficient permissions"
+        message: "Insufficient permissions",
       });
     }
   };

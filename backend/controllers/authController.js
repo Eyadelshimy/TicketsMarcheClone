@@ -98,10 +98,8 @@ exports.login = async (req, res) => {
     };
 
     if (rememberMe) {
-      // If "Remember Me" is checked, set longer cookie expiration (30 days)
       cookieOptions.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
     } else {
-      // Standard session cookie - 15 minutes
       cookieOptions.maxAge = 900000; // 15 minutes
     }
 
