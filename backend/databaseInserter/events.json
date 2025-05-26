@@ -3,6 +3,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/d8df5d74bdc55b9794cd6789722d3bc1.jpg",
         "event-name": "Layaly Dalida",
         "event-date": "May 22 to May 24 | 8:00pm",
+        "event-category": "Nightlife",
         "event-venue": "Rawabet Art Space",
         "event-price": ""
     },
@@ -10,6 +11,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/2d4906f1dbf1a2bd7d9ec18469345791.png",
         "event-name": "SECRET DEBATE CLUB",
         "event-date": "May 23 | 08:00 PM",
+        "event-category": "Comedy",
         "event-venue": "El Rihany Theater",
         "event-price": "Price Range: EGP 400 - 500"
     },
@@ -17,6 +19,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/14c3d7795f6012047f5cd8e18275ba9d.jpg",
         "event-name": "Disco Misr Festival - Album Launch",
         "event-date": "May 30 | 03:00 PM",
+        "event-category": "Nightlife",
         "event-venue": "Zed Park, Elsheikh Zayed",
         "event-price": "Price Range: EGP 300 - 800"
     },
@@ -24,6 +27,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/435b6c4d8ab633e75b1b07bb05af24cc.png",
         "event-name": "Adam Port",
         "event-date": "May 30 | 9:00 PM",
+        "event-category": "Concert",
         "event-venue": "The Green River-New Capital",
         "event-price": "Price Range: EGP 4000 - 20000"
     },
@@ -31,6 +35,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/50e15091e0b72bd57f2e5ed492a48606.jpg",
         "event-name": "The Color Run",
         "event-date": "May 31 | 08:00 AM",
+        "event-category": "Activities",
         "event-venue": "O West",
         "event-price": "Price Range: EGP 600 - 800"
     },
@@ -38,6 +43,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/cbfc2f02da67b7fd6f425ef287c304ee.jpg",
         "event-name": "ZED PARK",
         "event-date": "",
+        "event-category": "Other",
         "event-venue": "Zed Park, Elsheikh Zayed",
         "event-price": ""
     },
@@ -45,6 +51,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/e24f7346bffc0196d00e75ed35b73692.png",
         "event-name": "Lumen",
         "event-date": "Jun 07 | 09:00 PM",
+        "event-category": "Festival",
         "event-venue": "Mesca Beach, Somabay",
         "event-price": "Price Range: EGP 1200 - 2667"
     },
@@ -52,6 +59,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/1bd3b6a6cec53bd2f28f01a39f5733ab.jpg",
         "event-name": "“Tetrat W Zekrayat” Ali Elhaggar - Second Edition",
         "event-date": "May 22 | 09:00 PM",
+        "event-category": "Art & Theatre",
         "event-venue": "Theatro Arkan",
         "event-price": "Price Range: EGP 750 - 3100"
     },
@@ -59,6 +67,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/f4c7b7501801d03a66fd9ee90b1c6c9c.jpg",
         "event-name": "Saad El Oud Live At Boom Room",
         "event-date": "May 25 | 09:00 PM",
+        "event-category": "Festival",
         "event-venue": "Boom Room, Open Air Mall, Madinaty",
         "event-price": "Price: EGP 700"
     },
@@ -66,6 +75,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/294ead80ff92084263ba20a69d26b45c.png",
         "event-name": "Ignite BSE",
         "event-date": "May 30 | 04:00 PM",
+        "event-category": "Activities",
         "event-venue": "The British School of Egypt Theatre",
         "event-price": "Price Range: EGP 315 - 350"
     },
@@ -73,6 +83,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/bf3faf0960ce1cd6c2393a26c663f6ad.png",
         "event-name": "Bint Shoubra",
         "event-date": "30 and 31 May | 9:00 PM",
+        "event-category": "Art & Theatre",
         "event-venue": "The Theater",
         "event-price": ""
     },
@@ -80,6 +91,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/bb849c146dfb29cf865b2c23b7014667.jpg",
         "event-name": "Sound Up B-62 By “Nagham Saleh, Abraxasophia And Sine”",
         "event-date": "May 31 | 07:00 PM",
+        "event-category": "Festival",
         "event-venue": "Jesuit Cairo",
         "event-price": "Price: EGP 350"
     },
@@ -87,6 +99,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/8245f077b8f2220b0350acd511e387d8.jpg",
         "event-name": "What Have The Years Done To Us",
         "event-date": "2 to 4 June | 8:00 PM",
+        "event-category": "Activities",
         "event-venue": "Rawabet Art Space",
         "event-price": ""
     },
@@ -94,6 +107,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/753cca9ef0176c74c665f8307006b637.jpg",
         "event-name": "Jeff Dunham - Artificial Intelligence",
         "event-date": "Jun 26 | 09:00 PM",
+        "event-category": "Other",
         "event-venue": "Drama Hall",
         "event-price": "Price Range: EGP 1500 - 3250"
     },
@@ -101,6 +115,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/2fb73b6fc55fd51b9fcc4b4095ad473a.jpg",
         "event-name": "Red Bull Jukebox",
         "event-date": "May 23 | 04:00 PM",
+        "event-category": "Nightlife",
         "event-venue": "Taj City",
         "event-price": "Price: EGP 700"
     },
@@ -108,6 +123,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/2147f69d7b087a3974fbbe154219138d.jpg",
         "event-name": "Michael Buble Concert",
         "event-date": "May 26 | 9:00 PM",
+        "event-category": "Concerts",
         "event-venue": "Open Air Theater - City Of Arts and Culture",
         "event-price": "Price Range: EGP 3500 - 8000"
     },
@@ -115,6 +131,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/df15031b6adf1726739d868ce9f0eacb.jpg",
         "event-name": "3 In 1 Volume 2",
         "event-date": "May 30 & June 1 | 8:00 PM",
+        "event-category": "Comedy",
         "event-venue": "Rawabet Art Space",
         "event-price": ""
     },
@@ -122,6 +139,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/41b7b12c4712eb5f157f6b635c157241.jpg",
         "event-name": "Boom Room Turns 1 Featuring Sharmoofers And Surprise Guests",
         "event-date": "May 30 | 09:00 PM",
+        "event-category": "Nightlife",
         "event-venue": "Boom Room, Open Air Mall, Madinaty",
         "event-price": "Price: EGP 1200"
     },
@@ -129,6 +147,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/bdd18a9bcddd90f12fc2ac54e388e862.png",
         "event-name": "AUC Alumni Folklore Group",
         "event-date": "May 31 | 8:00 PM",
+        "event-category": "Art & Theatre",
         "event-venue": "Theatro Arkan",
         "event-price": "Price Range: EGP 350 - 550"
     },
@@ -136,6 +155,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/d4c4e9dc0f3851840e52bce4c0556ed0.png",
         "event-name": "Makadi Heights Music Festival: Cairokee X Marwan Moussa X Afroto",
         "event-date": "June 7 & 8 | 7:30 PM",
+        "event-category": "Concerts",
         "event-venue": "The Haus, Makadi Heights",
         "event-price": "Price Range: EGP 800 - 2000"
     },
@@ -143,6 +163,7 @@
         "category_img": "https://d3vzzcunewy153.cloudfront.net/img/17f95c00-4ab0-492d-94a6-3a647e5ea2fe/58fc47b71c11947a7078145673749817.png",
         "event-name": "Amr Diab X Monolink X WhoMadeWho",
         "event-date": "Jul 04 | 09:00 PM",
+        "event-category": "Concerts",
         "event-venue": "Sol Beach",
         "event-price": "Price Range: EGP 4000 - 15000"
     }
