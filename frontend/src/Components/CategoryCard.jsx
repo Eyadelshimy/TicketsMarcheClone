@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 
 export default function CategoryCard({ title, count, image }){
     const placeholderImage = 'https://via.placeholder.com/300x200?text=No+Image';
@@ -13,7 +14,7 @@ export default function CategoryCard({ title, count, image }){
                 <span className="body-7 count">{count} Events</span>
             </div>
             <div className="category_button_right">
-                <i className="fas fa-arrow-right"></i>
+                <FaArrowRight />
             </div>
         </Link>
     </div>

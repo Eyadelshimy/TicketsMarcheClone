@@ -1,57 +1,88 @@
+:root {
+  --mainColor: #f7c53f;
+}
+
+body {
+  background: white;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  background: white;
+}
+
+.radial-g-top {
+    background: var(--mainColor);
+    filter: blur(150px);
+    position: absolute;
+    left: 50%;
+    height: 20%;
+    top: -20px !important;
+    z-index: 0;
+    width: 70%;
+    opacity: 0.6;
+    transform: translate(-50%, 0);
+}
+
 /* Grid and layout styles */
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
+  max-width: 100%;
 }
 
 @media (min-width: 576px) {
   .container {
-    max-width: 540px;
+    max-width: 98%;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    max-width: 720px;
+    max-width: 98%;
   }
 }
 
 @media (min-width: 992px) {
   .container {
-    max-width: 960px;
+    max-width: 98%;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1140px;
+    max-width: 98%;
   }
 }
 
 /* Margin and padding utilities */
 .mt-4 {
-  margin-top: 1.5rem !important;
+  margin-top: 1rem !important;
 }
 
 .mb-3 {
-  margin-bottom: 1rem !important;
+  margin-bottom: 0.7rem !important;
 }
 
 .mb-4 {
-  margin-bottom: 1.5rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .my-5 {
-  margin-top: 3rem !important;
-  margin-bottom: 3rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
 }
 
 .py-4 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
 }
 
 .text-center {
@@ -183,15 +214,15 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: -8px;
+  margin-left: -8px;
 }
 
 .col-md-6 {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 @media (min-width: 768px) {
@@ -205,4 +236,11 @@
 .form-text {
   display: block;
   margin-top: 0.25rem;
+}
+
+/* Main content spacing */
+.main-content {
+  margin-top: 6rem !important;
+  width: 100%;
+  padding: 0 1%;
 } 
