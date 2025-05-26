@@ -49,6 +49,7 @@ export default function Navbar() {
     // Then logout the user
     try {
       await logout();
+      // Navigate to homepage after successful logout
       navigate("/", { replace: true });
     } catch (error) {
       console.error("Error during logout:", error);

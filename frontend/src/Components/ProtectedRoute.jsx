@@ -1,24 +1,26 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useModal } from '../context/ModalContext';
 
 /**
  * ProtectedRoute component that restricts access based on user authentication and roles
  * @param {Array} allowedRoles - Array of roles allowed to access the route
- * @param {string} redirectPath - Path to redirect to if user is not authenticated or authorized
  * @returns {JSX.Element} - The child route(s) or a redirect
  */
-const ProtectedRoute = ({ allowedRoles, redirectPath = '/login', children }) => {
+const ProtectedRoute = ({ allowedRoles, children }) => {
     const { user, isAuthenticated, loading } = useAuth();
+    const { openLoginModal } = useModal();
     
     // Show loading state while checking authentication
     if (loading) {
         return <div className="loading-container">Loading...</div>;
     }
 
-    // If user is not authenticated, redirect to login
+    // If user is not authenticated, redirect to home and open login modal
     if (!isAuthenticated) {
-        return <Navigate to={redirectPath} replace />;
+        openLoginModal();
+        return <Navigate to="/" replace />;
     }
 
     // If allowedRoles is provided, check if user has one of the allowed roles

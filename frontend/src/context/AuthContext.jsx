@@ -115,9 +115,7 @@ export const AuthProvider = ({ children }) => {
       await auth.post("/logout");
       setUser(null);
       // Clear the stored token on logout
-      removeCookie();
-      // Navigate to home page after logout
-      navigate("/", { replace: true });
+      removeCookie("token");
     } catch (error) {
       console.error("Logout error:", error);
     }

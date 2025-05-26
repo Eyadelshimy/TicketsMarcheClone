@@ -22,6 +22,7 @@ import Register from "./Pages/Auth/Register";
 // Organizer pages
 import MyEvents from "./Pages/Organizer/MyEvents";
 import CreateEvent from "./Pages/Organizer/CreateEvent";
+import EventAnalytics from "./Pages/Organizer/EventAnalytics";
 
 // Admin pages
 import UserManagement from "./Pages/Admin/UserManagement";
@@ -64,6 +65,7 @@ function App() {
                 >
                   <Route path="my-events" element={<MyEvents />} />
                   <Route path="create-event" element={<CreateEvent />} />
+                  <Route path="event-analytics" element={<EventAnalytics />} />
                 </Route>
 
                 <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
