@@ -6,12 +6,12 @@ const {
   cancelBooking,
   getUserBookings,
 } = require("../controllers/bookingController");
-const { roleProtect } = require("../middleware/auth");
+const { protect, roleProtect } = require("../middleware/auth");
 
-router.get("/:id", roleProtect(["user"]), getBooking);
-router.delete("/:id", roleProtect(["user"]), cancelBooking);
+router.get("/:id", protect, roleProtect(["user"]), getBooking);
+router.delete("/:id", protect, roleProtect(["user"]), cancelBooking);
 
-router.post("/", roleProtect(["user"]), bookTicket);
-router.get("/user/:userId", roleProtect(["user"]), getUserBookings);
+router.post("/", protect, roleProtect(["user"]), bookTicket);
+router.get("/user/:userId", protect, roleProtect(["user"]), getUserBookings);
 
 module.exports = router;

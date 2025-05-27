@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Col from "react-bootstrap/Col";
+import { bookings as bookingConnection } from "../Connections/axios";
 import Row from "react-bootstrap/Row";
 import "../assets/css/profile.css";
 
@@ -13,6 +14,7 @@ const EditProfileModal = ({ user, onClose, onSave }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState(user.profilePicture || "");
+
   const { user: authUser } = useAuth();
 
   const handleChange = (e) => {
@@ -184,6 +186,15 @@ const ProfilePage = () => {
     }
   }, [user]);
 
+  const [bookings, setBookings] = useState([]);
+  useEffect(() => {
+    bookingConnection.get(`/${user._id}`).then((response) => {
+      if (response.data.success == true) {
+        setBookings(response.data.data);
+      }
+    });
+  }, [user]);
+
   if (!user) {
     return (
       <div className="profile-page">
@@ -298,4 +309,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../assets/css/eventDetails.css";
 import BookingModal from "../Components/BookingModal";
+
+import { bookings as bookingConnection } from "../Connections/axios";
 import { events as eventsConnection } from "../Connections/axios";
 
 const EventDetailsPage = () => {
@@ -17,7 +19,7 @@ const EventDetailsPage = () => {
   useEffect(() => {
     const fetchEventDetails = () => {
       eventsConnection.get(`/${eventId}`).then((response) => {
-        setEvent(response.data);
+        setEvent(response.data[0]);
       });
 
       setLoading(false);
@@ -37,12 +39,15 @@ const EventDetailsPage = () => {
   const handleBookingComplete = (bookingData) => {
     // In a real app, you would send this data to your backend
     console.log("Booking completed:", bookingData);
-    setBookingSuccess(true);
 
-    // Reset success message after 5 seconds
-    setTimeout(() => {
-      setBookingSuccess(false);
-    }, 5000);
+    bookingConnection
+      .post("/", {
+        id: bookingData.eventId,
+        numTickets: bookingData.quantity,
+      })
+      .then(() => {
+        setBookingSuccess(true);
+      });
   };
 
   if (loading) {
@@ -52,6 +57,8 @@ const EventDetailsPage = () => {
   if (!event) {
     return <div className="event-not-found">Event not found</div>;
   }
+
+  console.log(event);
 
   return (
     <div className="event-details-container">
@@ -82,9 +89,7 @@ const EventDetailsPage = () => {
             </div>
             <div className="event-meta-item">
               <i className="icon-location"></i>
-              <span>
-                {event.location} - {event.venue}
-              </span>
+              <span>{event.location}</span>
             </div>
           </div>
         </div>
@@ -150,4 +155,3 @@ const EventDetailsPage = () => {
 };
 
 export default EventDetailsPage;
-

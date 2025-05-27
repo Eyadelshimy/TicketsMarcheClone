@@ -165,7 +165,7 @@ const EventsPage = () => {
         {filteredEvents.length > 0 ? (
           <div className="events-grid">
             {filteredEvents.map((event, index) => (
-              <EventCard key={index} {...event} />
+              <EventCard key={index} {...event} id={event._id} />
             ))}
           </div>
         ) : (
