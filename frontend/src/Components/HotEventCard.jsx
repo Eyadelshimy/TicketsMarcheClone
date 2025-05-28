@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-export default function HotEventCard({ title, image, date }) {
+export default function HotEventCard({ title, image, date, id }) {
   const placeholderImage = "https://via.placeholder.com/300x200?text=No+Image";
   const options = { year: "numeric", month: "long", day: "numeric" };
 
   return (
     <div className="hot-event-card">
-      <Link to={`/events/${title.toLowerCase().replace(/\s+/g, "-")}`}>
+      <Link to={`/events/${id}`}>
         <div className="hot-event-image-container">
           <img
             src={image || placeholderImage}

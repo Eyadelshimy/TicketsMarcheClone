@@ -4,9 +4,12 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
+import "../assets/css/rand.css";
+
 function Layout() {
   return (
     <div className="app-container">
+      <section className="miuau"></section>
       <Navbar />
       <main className="main-content mt-4">
         <Outlet />
@@ -17,4 +20,3 @@ function Layout() {
 }
 
 export default Layout;
-

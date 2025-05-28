@@ -1,8 +1,8 @@
 /* App.css */
-@import './assets/css/alerts.css';
-@import './assets/css/tables.css';
-@import './assets/css/layout.css';
-@import './assets/css/unauthorized.css';
+@import "./assets/css/alerts.css";
+@import "./assets/css/tables.css";
+@import "./assets/css/layout.css";
+@import "./assets/css/unauthorized.css";
 
 /* Add this to the beginning of the file */
 * {
@@ -11,11 +11,11 @@
 
 /* Remove autofill background color */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
-    -webkit-text-fill-color: #333 !important;
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #333 !important;
 }
 
 /* Modified App.css */
@@ -40,6 +40,7 @@ input:-webkit-autofill:active {
   padding-top: 80px; /* Reduced from 110px to decrease height */
   padding-bottom: 20px; /* Reduced from 40px */
   width: 100%;
+  background: whitesmoke;
 }
 
 /* Navbar adjustments */
@@ -142,7 +143,7 @@ input:-webkit-autofill:active {
 
 .footer-tagline {
   margin-top: 15px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #555;
@@ -175,7 +176,7 @@ input:-webkit-autofill:active {
 }
 
 .footer-col ul li a {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: #666;
   text-decoration: none;
   font-size: 15px;
@@ -186,7 +187,7 @@ input:-webkit-autofill:active {
 }
 
 .footer-col ul li a::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 1px;
@@ -240,7 +241,7 @@ input:-webkit-autofill:active {
 }
 
 .copyright {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 14px;
   color: #777;
 }
@@ -316,3 +317,4 @@ input:-webkit-autofill:active {
     gap: 40px;
   }
 }
+

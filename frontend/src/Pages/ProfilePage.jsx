@@ -180,7 +180,13 @@ const ProfilePage = () => {
         name: user.name || "User",
         email: user.email || "",
         profilePicture: user.profilePicture || "",
-        createdAt: user.createdAt || new Date().toISOString(),
+        createdAt:
+          user.createdAt ||
+          new Date().toLocaleString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
         role: userRole,
       });
     }
@@ -188,9 +194,23 @@ const ProfilePage = () => {
 
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
-    bookingConnection.get(`/${user._id}`).then((response) => {
+    bookingConnection.get(`/user/${user._id}`).then((response) => {
       if (response.data.success == true) {
-        setBookings(response.data.data);
+        let bookingsZ = [];
+
+        response.data.data.forEach((element) => {
+          let booking = {};
+
+          booking.title = element.event.title;
+          booking.date = element.event.date;
+          booking.location = element.event.location;
+          booking.numberOfTickets = element.numberOfTickets;
+          booking.totalPrice = element.totalPrice;
+
+          bookingsZ.push(booking);
+        });
+
+        setBookings(bookingsZ);
       }
     });
   }, [user]);
@@ -227,7 +247,6 @@ const ProfilePage = () => {
           onSave={handleSaveProfile}
         />
       )}
-
       <div className="profile-header-section">
         <div
           className="profile-avatar-container clickable"
@@ -293,15 +312,45 @@ const ProfilePage = () => {
           </Row>
         </div>
       </div>
-
       <div className="purchase-history-section">
         <h2 className="section-title">Purchase History</h2>
         <div className="purchase-history-content">
-          <div className="empty-purchases">
-            <p className="empty-purchases-text">
-              You haven't purchased tickets for any upcoming events yet.
-            </p>
-          </div>
+          {bookings && bookings.length > 0 ? (
+            <table className="purchase-history-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Location</th>
+                  <th>Tickets</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookings.map((purchase, index) => (
+                  <tr key={index}>
+                    <td>{purchase.title}</td>
+                    <td>
+                      {new Date(purchase.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </td>
+                    <td>{purchase.location}</td>
+                    <td>{purchase.numberOfTickets}</td>
+                    <td>{purchase.totalPrice}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="empty-purchases">
+              <p className="empty-purchases-text">
+                You haven't purchased tickets for any upcoming events yet.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

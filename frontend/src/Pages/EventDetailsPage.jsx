@@ -14,18 +14,12 @@ const EventDetailsPage = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
-  // In a real app, you would fetch event details from an API
-  // For now, we'll use sample data
   useEffect(() => {
-    const fetchEventDetails = () => {
-      eventsConnection.get(`/${eventId}`).then((response) => {
-        setEvent(response.data[0]);
-      });
+    eventsConnection.get(`/${eventId}`).then((response) => {
+      setEvent(response.data[0]);
+    });
 
-      setLoading(false);
-    };
-
-    fetchEventDetails();
+    if (event) setLoading(false);
   }, [eventId, navigate]);
 
   const handleBookNow = () => {
@@ -37,7 +31,6 @@ const EventDetailsPage = () => {
   };
 
   const handleBookingComplete = (bookingData) => {
-    // In a real app, you would send this data to your backend
     console.log("Booking completed:", bookingData);
 
     bookingConnection
@@ -54,11 +47,9 @@ const EventDetailsPage = () => {
     return <div className="loading-spinner">Loading...</div>;
   }
 
-  if (!event) {
+  if (!event || !event.title) {
     return <div className="event-not-found">Event not found</div>;
   }
-
-  console.log(event);
 
   return (
     <div className="event-details-container">

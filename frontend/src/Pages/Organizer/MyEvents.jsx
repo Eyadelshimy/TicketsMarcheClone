@@ -151,14 +151,6 @@ const MyEvents = () => {
                   </button>
                 </div>
 
-                {event.status === "Approved" && (
-                  <Link
-                    to={`/event-dashboard/${event._id}`}
-                    className="btn btn-outline-success btn-sm w-100 mt-2"
-                  >
-                    <i className="fas fa-chart-line me-1"></i>View Dashboard
-                  </Link>
-                )}
                 {event.status === "Declined" && (
                   <div className="mt-2 small text-danger">
                     <i className="fas fa-exclamation-circle me-1"></i>

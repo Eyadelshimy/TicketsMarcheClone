@@ -468,3 +468,50 @@
 .edit-name-icon:hover {
   opacity: 1;
 }
+
+.purchase-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.purchase-history-table thead {
+  background-color: rgba(255, 193, 0, 0.9);
+  color: #111;
+  font-weight: 700;
+}
+
+.purchase-history-table th,
+.purchase-history-table td {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+}
+
+.purchase-history-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.purchase-history-table tbody tr:hover {
+  background-color: rgba(255, 193, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.purchase-history-section {
+  padding: 40px 20px;
+  background: transparent;
+}
+
+.purchase-history-section .section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 20px;
+}

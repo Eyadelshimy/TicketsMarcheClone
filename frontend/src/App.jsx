@@ -5,7 +5,7 @@ import Layout from "./Components/Layout";
 import HomePage from "./Pages/HomePage";
 import EventsPage from "./Pages/EventsPage";
 import EventDetailsPage from "./Pages/EventDetailsPage";
-import VenueDetailsPage from "./Pages/VenueDetailsPage";
+import EditEvent from "./Pages/EditEvent";
 import ProfilePage from "./Pages/ProfilePage";
 import { AuthProvider } from "./context/AuthContext";
 import { ModalProvider } from "./context/ModalContext";
@@ -14,8 +14,6 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import UnauthorizedPage from "./Pages/UnauthorizedPage";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import ResetPassword from "./Pages/Auth/ResetPassword";
-import Login from "./Pages/Auth/Login";
-import Register from "./Pages/Auth/Register";
 import EventAnalytics from "./Pages/Organizer/EventAnalytics";
 
 // User pages - removed MyBookings import since it's redundant with profile page
@@ -44,8 +42,6 @@ function App() {
                 <Route path="events" element={<EventsPage />} />
                 <Route path="events/:eventId" element={<EventDetailsPage />} />
                 <Route path="unauthorized" element={<UnauthorizedPage />} />
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route
                   path="reset-password/:token"
@@ -63,6 +59,7 @@ function App() {
                   element={<ProtectedRoute allowedRoles={["organizer"]} />}
                 >
                   <Route path="my-events" element={<MyEvents />} />
+                  <Route path="edit-event/:eventId" element={<EditEvent />} />
                   <Route path="create-event" element={<CreateEvent />} />
                   <Route path="event-analytics" element={<EventAnalytics />} />
                 </Route>

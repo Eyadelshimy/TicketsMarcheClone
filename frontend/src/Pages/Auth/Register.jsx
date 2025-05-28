@@ -136,8 +136,7 @@ const Register = () => {
                   </div>
                 </div>
               </div>
-
-              <div
+              {/*              <div
                 className={`role-option ${formData.role === "admin" ? "active" : ""}`}
                 onClick={() => setFormData({ ...formData, role: "admin" })}
               >
@@ -148,7 +147,7 @@ const Register = () => {
                     {getRoleDescription("admin")}
                   </div>
                 </div>
-              </div>
+              </div>*/}
             </div>
             <input type="hidden" name="role" value={formData.role} required />
           </div>

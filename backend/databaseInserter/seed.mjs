@@ -6,7 +6,7 @@ const fs = require("fs");
 const db = connect("mongodb://localhost:27017/TicketsMarcheDB");
 
 // Replace with actual ObjectId of a valid organizer
-const organizerId = ObjectId("67fc8f1703887a7a1fc1f460");
+const organizerId = ObjectId("6835a47038b495ca889386e8");
 
 // Load JSON data
 const raw = fs.readFileSync("./backend/databaseInserter/events.json");
@@ -30,13 +30,13 @@ function parsePrice(priceStr) {
 function getRandomMultipleOf50(min = 300, max = 1000) {
   const minMultiplier = Math.ceil(min / 50);
   const maxMultiplier = Math.floor(max / 50);
-  const randomMultiplier = Math.floor(Math.random() * (maxMultiplier - minMultiplier + 1)) + minMultiplier;
+  const randomMultiplier =
+    Math.floor(Math.random() * (maxMultiplier - minMultiplier + 1)) +
+    minMultiplier;
   return randomMultiplier * 50;
 }
 
-
-
-function randomRemain(max){
+function randomRemain(max) {
   return Math.floor(Math.random() * max) + 1;
 }
 
@@ -64,3 +64,4 @@ events.forEach((e) => {
 });
 
 print("? Events inserted successfully.");
+

@@ -74,10 +74,13 @@ const HomePage = () => {
       hotdEvents.forEach((ev) => {
         let hotfEvent = {
           title: ev.title,
+          id: ev._id,
           image: ev.image,
           location: ev.location,
           date: ev.date,
         };
+
+        console.log(ev._id);
 
         hotfEvents.push(hotfEvent);
       });
@@ -124,14 +127,14 @@ const HomePage = () => {
                   )}{" "}
                 </div>
                 <div className="event-location text-center">
-                  <strong>The Green River-New Capital</strong>
+                  <strong>{featuredEvent.location}</strong>
                 </div>
                 <p className="mt-5">{featuredEvent.description}</p>
               </div>
 
-              <div className="mt-auto button-container">
+              <div className="mt-auto">
                 <Link
-                  to={`/events/${featuredEvent.slug}`}
+                  to={`/events/${featuredEvent._id}`}
                   className="btn btn-tm-primary"
                 >
                   <FaTicketAlt className="me-2" /> Book Now
@@ -167,6 +170,7 @@ const HomePage = () => {
             title={event.title}
             image={event.image}
             date={event.date}
+            id={event.id}
           />
         ))}
       />
@@ -174,7 +178,7 @@ const HomePage = () => {
       <HorizontalScroller
         title={"Upcoming Events"}
         items={upcomingEvents.map((event, index) => (
-          <EventCard key={index} {...event} />
+          <EventCard key={index} {...event} id={event._id} />
         ))}
       />
 

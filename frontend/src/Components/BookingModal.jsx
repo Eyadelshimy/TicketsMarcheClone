@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../assets/css/bookingModal.css";
+import BookingModalBS from "../Components/BookingModalBS";
 
 const BookingModal = ({ event, isOpen, onClose, onBook }) => {
   const [bookingData, setBookingData] = useState({
@@ -110,227 +111,21 @@ const BookingModal = ({ event, isOpen, onClose, onBook }) => {
   };
 
   return (
-    <div className="booking-modal-overlay">
-      <div className="booking-modal">
-        <button className="close-modal-btn" onClick={onClose}>
-          ×
-        </button>
-
-        {isSuccess ? (
-          <div className="booking-success">
-            <i className="success-icon">✓</i>
-            <h3>Booking Successful!</h3>
-            <p>Your tickets for {event.title} have been booked.</p>
-            <p>A confirmation has been sent to your email.</p>
-          </div>
-        ) : (
-          <>
-            <div className="booking-modal-header">
-              <h2>{step === 1 ? "Book Tickets" : "Review Booking"}</h2>
-              <h3>{event.title}</h3>
-              <p>
-                {event.date} at {event.time}
-              </p>
-              <p>
-                {event.venue}, {event.location}
-              </p>
-
-              {step === 2 && (
-                <div className="booking-steps">
-                  <span className="step completed">Details</span>
-                  <span className="step-separator">→</span>
-                  <span className="step active">Review</span>
-                </div>
-              )}
-            </div>
-
-            {step === 1 ? (
-              <form className="booking-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label htmlFor="name">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={bookingData.name}
-                    onChange={handleChange}
-                    className={errors.name ? "error" : ""}
-                  />
-                  {errors.name && (
-                    <span className="error-message">{errors.name}</span>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={bookingData.email}
-                    onChange={handleChange}
-                    className={errors.email ? "error" : ""}
-                  />
-                  {errors.email && (
-                    <span className="error-message">{errors.email}</span>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="phone">Phone Number</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={bookingData.phone}
-                    onChange={handleChange}
-                    className={errors.phone ? "error" : ""}
-                  />
-                  {errors.phone && (
-                    <span className="error-message">{errors.phone}</span>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="quantity">Number of Tickets</label>
-                  <input
-                    type="number"
-                    id="quantity"
-                    name="quantity"
-                    min="1"
-                    value={bookingData.quantity}
-                    onChange={handleChange}
-                    className={errors.quantity ? "error" : ""}
-                  />
-                  {errors.quantity && (
-                    <span className="error-message">{errors.quantity}</span>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="specialRequests">
-                    Special Requests (Optional)
-                  </label>
-                  <textarea
-                    id="specialRequests"
-                    name="specialRequests"
-                    rows="3"
-                    value={bookingData.specialRequests}
-                    onChange={handleChange}
-                    placeholder="Any special requirements or requests?"
-                  ></textarea>
-                </div>
-
-                <div className="booking-summary">
-                  <div className="summary-item">
-                    <span>Price per ticket:</span>
-                    <span>{event.ticketPricing}</span>
-                  </div>
-                  <div className="summary-item">
-                    <span>Quantity:</span>
-                    <span>{bookingData.quantity}</span>
-                  </div>
-                  <div className="summary-item total">
-                    <span>Total:</span>
-                    <span>
-                      {`${calculateTotalPrice()} ${event.ticketPricing}`}
-                    </span>
-                  </div>
-                </div>
-
-                {errors.submit && (
-                  <div className="error-message submit-error">
-                    {errors.submit}
-                  </div>
-                )}
-
-                <button type="submit" className="book-tickets-btn">
-                  Continue to Review
-                </button>
-              </form>
-            ) : (
-              <div className="booking-review">
-                <div className="review-section">
-                  <h4>Event Details</h4>
-                  <div className="review-item">
-                    <span>Event:</span>
-                    <span>{event.title}</span>
-                  </div>
-                  <div className="review-item">
-                    <span>Date & Time:</span>
-                    <span>
-                      {event.date} at {event.time}
-                    </span>
-                  </div>
-                  <div className="review-item">
-                    <span>Venue:</span>
-                    <span>
-                      {event.venue}, {event.location}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="review-section">
-                  <h4>Customer Information</h4>
-                  <div className="review-item">
-                    <span>Name:</span>
-                    <span>{bookingData.name}</span>
-                  </div>
-                  <div className="review-item">
-                    <span>Email:</span>
-                    <span>{bookingData.email}</span>
-                  </div>
-                  <div className="review-item">
-                    <span>Phone:</span>
-                    <span>{bookingData.phone}</span>
-                  </div>
-                  {bookingData.specialRequests && (
-                    <div className="review-item">
-                      <span>Special Requests:</span>
-                      <span>{bookingData.specialRequests}</span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="review-section">
-                  <h4>Order Summary</h4>
-                  <div className="review-item">
-                    <span>Tickets:</span>
-                    <span>
-                      {bookingData.quantity} x {event.ticketPricing}
-                    </span>
-                  </div>
-                  <div className="review-item total">
-                    <span>Total:</span>
-                    <span>{`${calculateTotalPrice()}`}</span>
-                  </div>
-                </div>
-
-                <div className="review-actions">
-                  <button
-                    type="button"
-                    className="back-btn"
-                    onClick={handleBack}
-                  >
-                    Back to Details
-                  </button>
-                  <button
-                    type="button"
-                    className="book-tickets-btn"
-                    disabled={isLoading}
-                    onClick={handleSubmit}
-                  >
-                    {isLoading ? "Processing..." : "Confirm Booking"}
-                  </button>
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-    </div>
+    <BookingModalBS
+      show={isOpen}
+      onClose={onClose}
+      event={event}
+      step={step}
+      isSuccess={isSuccess}
+      isLoading={isLoading}
+      bookingData={bookingData}
+      errors={errors}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      handleBack={handleBack}
+      calculateTotalPrice={calculateTotalPrice}
+    />
   );
 };
 
 export default BookingModal;
-
