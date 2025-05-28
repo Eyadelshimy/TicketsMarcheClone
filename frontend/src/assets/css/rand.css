@@ -1,0 +1,11 @@
+.miuau {
+  background: yellow;
+  filter: blur(300px);
+  position: absolute;
+  left: 50%;
+  height: 50%;
+  top: 40% !important;
+  z-index: -1;
+  width: 50%;
+  transform: translate(-50%, 0);
+}
